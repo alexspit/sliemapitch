@@ -19,7 +19,30 @@ if(!isset($_SESSION["loggedin"]))
 include 'backend_header.php';
 
 $categories = new menu_category();
+$menu = new menu_item();
 
+$menu->category = new menu_category(1);
+$menu->name = "BruscettaCaprese";
+$menu->description = "LOL";
+$menu->price = 22.90;
+$menu->vegetarian = 1;
+$menu->spicey = 1;
+$menu->gluten_free = 1;
+$menu->featured = 1;
+
+
+//$id = $menu->addMenuItem();
+
+ 
+
+if ($menu->updateMenuItem(5)){
+    echo "Success";
+}
+else
+{
+    echo "Fail to delete";
+}
+//var_dump($menu); exit;
 //echo $cat->category_name; exit;
 
 ?>
@@ -55,56 +78,15 @@ $categories = new menu_category();
                 
                 <div class="row">
                     <div id="form">
-                        <form id="menu-item-form" class="contact-form" action="../process_data/load_booking.php" method="post">
-                         <div class="col-lg-12 ">
-                             <p>Filter Reservations:</p>
-                         </div>
-                         <div class="col-lg-3 col-sm-6">
-                             <input name="startdate" type="datetime" id="date_timepicker_start" placeholder="Start Date" />
-                         </div>
-                         <div class="col-lg-3 col-sm-6">
-                            <input name="enddate" type="datetime" id="date_timepicker_end" placeholder="End Date" />
-                        </div>
+                        <form id="menu-item-form" class="contact-form" action="../process_data/add_menu_item.php" method="post">
                          
-                        <div class="col-lg-3 col-sm-6">
-                            
-                             <select id="filter" name="filter">
-                               <option disabled="" selected="" style="display:none;">Filters:</option>
-                               <option>Status</option>
-                               <option>Period</option>
-                               <option>No. of Diners</option>
-                               <option>Side</option>
-                               <option>No Filter</option>
-                           </select>
-                         </div>
-                         <div class="col-lg-3 col-sm-6">
-                            <select id="options" name="option">
-                               <option id="option_options" disabled="" selected="" style="display:none;">Options:</option>
-                               <option class="status">Pending</option>
-                               <option class="status">Confirmed</option>
-                               <option class="status">Rejected</option>
-                               <option class="status">Expired</option>
-                               <option class="status">Cancelled</option>
-                               
-                               <option class="period">Lunch</option>
-                               <option class="period">Dinner</option>
-                               
-                               <option class="side">Prime Side</option>
-                               <option class="side">Sea Side</option>
-                               <option class="side">Bar Side</option>
-                               <option class="side">Inside</option>
-                               <option class="side">Gallery</option>
-                               <option class="side">No Preference</option>
-                               
-                               <option class="no_of_diners">1</option>
-                               <option class="no_of_diners">2</option>
-                               <option class="no_of_diners">3</option>
-                               <option class="no_of_diners">4</option>
-                               <option class="no_of_diners">5+</option>
-                                         
-                           </select>
+                        
+                         <div class="col-sm-12">
+                              <button class="btn btn-primary "  style="float:none;"id="submit" type="button" value="Add Menu Item">Upload PDF</button>
+                              
+                              <button class="btn btn-primary" style="margin-left: 10px; float:none;" id="submit" type="submit" value="Add Menu Item">Add Menu Item</button>
                         </div>
-                        <button class="btn btn-primary" id="submit" type="submit" style="display: none" value="Book Table">Book Table</button>
+                        
                      </form>
                     </div>
                 </div>
