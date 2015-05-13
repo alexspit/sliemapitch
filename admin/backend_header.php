@@ -3,6 +3,8 @@ if (session_status() == PHP_SESSION_NONE)
     {session_start();}
     
 include '../data_class/reservation.php';
+include '../data_class/menu_category.php';
+include '../data_class/menu_item.php';
 
 $reservation = new reservation();
 

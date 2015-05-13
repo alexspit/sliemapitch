@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 include_once 'db_connection.php';
+include_once 'menu_category.php';
 
 /**
  * Description of product
@@ -14,39 +15,66 @@ include_once 'db_connection.php';
  */
 class menu_item {
     
-    public $item_id, $category_id, $category_name, $name, $description, $price, $item_img, $date_added, $last_edited, $vegitarian, $spicey, $gluten_free, $featured;
-    
-    public function __construct()
+    public $item_id, $category, $name, $description, $price, $item_img, $date_added, $last_edited, $vegitarian, $spicey, $gluten_free, $featured, $db;
+    private $db;
+    public function __construct($category)
     {
+          $this->db = new db_connection();
           
     }
     
     
-    public function addMenuItem()
+    public function get()
     {
-     
-        $db = new db_connection();
-        $link = $db->openConnection();
+        if(isset($this->item_id)){
+            $link = $this->db->openConnection();
+        
+            $sql = "SELECT c.category_name, m.name
+                    FROM menu_item m
+                    INNER JOIN menu_category c ON ( c.category_id = m.category_id ) ";
+            $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+            
+             while($row = mysqli_fetch_array($result))
+            {
+                $this->category_id = $row['category_id'];
+                $this->category_img = $row['category_img'];
+                $this->category_name = $row['category_name'];    
+            }
+            $this->db->closeConnection();
+            return $this;
+        }
+        else{
+            return;
+            
+        }
+        
+        
+    }
+    
+    public function addMenuItem()
+    {    
+       
+        $link = $this->db->openConnection();
               
         $sql = "INSERT INTO menu_item (category_id, name, description, price, date_added, vegetarian, spicey, gluten_free, featured)"
-                . "VALUES ($this->category_id, $this->name, $this->description, $this->price, $this->date_added, $this->vegitarian, $this->spicey, $this->gluten_free, $this->featured) ";
+                . "VALUES (".$this->category->category_id.", $this->name, $this->description, $this->price, $this->date_added, $this->vegitarian, $this->spicey, $this->gluten_free, $this->featured) ";
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));          
         
         $item_id = mysqli_insert_id($link);
-        $db->closeConnection(); 
+        $this->db->closeConnection(); 
         return $item_id;
       
     }
     public function deleteMenuItem($id){
         
-        $db = new db_connection();
-        $link = $db->openConnection();
+        
+        $link = $this->db->openConnection();
          
         $sql = "DELETE FROM menu_item WHERE item_id=$id";
          
          $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
          $success = ($result > 0 ? true : false); 
-         $db->closeConnection(); 
+         $this->db->closeConnection(); 
         
         return $success;
     }
@@ -55,10 +83,10 @@ class menu_item {
  
         date_default_timezone_set('Europe/Berlin');
         $currentDateTime = date('Y-m-d H:i:s', time());
-        $db = new db_connection();
-        $link = $db->openConnection();
+        
+        $link = $this->db->openConnection();
          
-        $sql = 'UPDATE menu_item SET category_id='.$this->category_id.', name="'.$this->name.'", description="'.$this->description.'", price='.$this->price.', last_edited="'.$currentDateTime.'", vegetarian='.$this->vegitarian.', spicey='.$this->spicey.', gluten_free='.$this->gluten_free.', featured='.$this->featured.''
+        $sql = 'UPDATE menu_item SET category_id='.$this->category->category_id.', name="'.$this->name.'", description="'.$this->description.'", price='.$this->price.', last_edited="'.$currentDateTime.'", vegetarian='.$this->vegitarian.', spicey='.$this->spicey.', gluten_free='.$this->gluten_free.', featured='.$this->featured.''
                 . 'WHERE item_id='.$this->item_id;
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
             if($result > 0){
@@ -67,7 +95,7 @@ class menu_item {
                            else{$msg = "nothing expired";}
         
         
-        $db->closeConnection(); 
+        $this->db->closeConnection(); 
         
         return $msg;
     }
@@ -75,9 +103,9 @@ class menu_item {
     
    
   
-    public function getMenuItems($sql){
-        $db = new db_connection();                      
-        $link = $db->openConnection();
+    public function getMenuItems(){
+                            
+        $link = $this->db->openConnection();
         
         $sql = "SELECT c.category_name, m.name
                 FROM menu_item m
@@ -135,7 +163,7 @@ class menu_item {
     
     $tmpstr .= '</div>';
     
-    $db->closeConnection();
+    $this->db->closeConnection();
     
     echo $tmpstr;
     }

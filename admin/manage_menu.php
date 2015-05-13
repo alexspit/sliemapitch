@@ -3,9 +3,9 @@ if (session_status() == PHP_SESSION_NONE)
     {session_start();}
   //error_reporting(0);
     
-    $_SESSION["current_page"] = "menu";
+$_SESSION["current_page"] = "menu";
     
-     $title = "Review Booking |Sliema Pitch Restaurant & Lounge";
+$title = "Review Booking |Sliema Pitch Restaurant & Lounge";
 $desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vulputate sit amet lectus eu scelerisque. Donec ullamcorper mi diam, vitae hendrerit metus aliquet nec. Fusce id vestibulum augue. Praesent elit orci, blandit eu placerat ut, egestas sit amet nibh. Aenean placerat sit amet nunc nec venenatis. Duis id orci rhoncus, congue nunc sit amet, porttitor magna. Etiam in convallis lorem. Quisque euismod dictum ante. Pellentesque tellus est, iaculis quis tellus at, dictum faucibus libero. Duis tincidunt diam quis turpis posuere malesuada. Nunc eu nisi a felis ultrices condimentum. Mauris quis nisl ornare turpis sollicitudin condimentum. Etiam at mauris tempor, scelerisque turpis at, vulputate nisi. Suspendisse hendrerit tincidunt ornare. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consectetur placerat consectetur. Cras vitae mauris tellus. Duis leo eros, eleifend sit amet magna quis, hendrerit malesuada purus. Proin rhoncus consequat augue et mollis. Nunc pretium porta nibh, in volutpat nunc bibendum ut. Nullam neque dolor, facilisis nec dignissim vitae, adipiscing nec turpis. Duis viverra facilisis risus id scelerisque. Aenean iaculis leo at elit gravida, eu tempor sem faucibus.
 Sed viverra feugiat quam in suscipit. Vestibulum nec massa luctus risus tincidunt tristique eget vel augue. Aenean eu libero sed sem varius hendrerit. Proin eu erat tempus, rutrum eros eget, convallis turpis. Nam id tempor lorem. Suspendisse ultricies imperdiet libero, quis pellentesque elit iaculis id. Maecenas porta a lorem sed porta.
 Suspendisse porttitor eleifend ornare. Nam enim dolor, tempor a tortor quis, sodales pulvinar est. Integer gravida lacinia accumsan. Maecenas quis magna id eros interdum sollicitudin. Proin eget consequat ipsum, sit amet luctus nulla. Quisque et porta nunc. Suspendisse eget justo ac lacus porttitor condimentum. Nunc vel quam tincidunt, euismod mi non, pretium libero. Integer facilisis neque volutpat, euismod leo ut, condimentum nibh.
@@ -17,9 +17,10 @@ if(!isset($_SESSION["loggedin"]))
 }
 
 include 'backend_header.php';
-$res = new reservation();
 
-//echo $res->getSQL(NULL, NULL, "oldest", NULL, NULL);
+$categories = new menu_category();
+
+//echo $cat->category_name; exit;
 
 ?>
 
@@ -32,7 +33,7 @@ $res = new reservation();
                         <h2 id="reservations">Menu Management</h2>
                     </div>
                     <div class="col-lg-2 col-sm-4 " >
-                        <select id="menu_category_filter" name="menu_category_filter" style="margin-top: 30px;" form="contact-form">
+                      <!--  <select id="menu_category_filter" name="menu_category_filter" style="margin-top: 30px;" form="contact-form">
                                <option disabled="" selected="" style="display:none;">Menu Category:</option>
                                <option>Starters</option>
                                <option>Salads</option> 
@@ -40,38 +41,21 @@ $res = new reservation();
                                <option>Pizza</option> 
                                <option>Mains</option> 
                                <option>Desserts</option>  
-                        </select>
+                        </select>-->
+                        
+                        <?php $categories->getDropDown(); ?>
                     </div>
                     
                 </div>
                  
-                <div id="showreservations">              
-                 <?php
-                 $res->checkIfExpired();
-                 
-                  $status="";
-                    if(isset($_GET["status"]) && !empty($_GET["status"]))
-                    {
-                        $status = $_GET["status"];
-                    }
-                    
-                    if ($status == "pending")
-                    {
-                         $sql = $res->getSQL(NULL, NULL, "latest", "status", "pending");
-                    }
-                    else
-                    {
-                         $sql = $res->getSQL(NULL, NULL, "latest", NULL, NULL);
-                    }
+                <div id="showmenuitems">              
+                
+                </div>
                 
                 
-                 $res->getReservations($sql);
-                 
-                 ?>
-                </div> 
                 <div class="row">
                     <div id="form">
-                        <form id="contact-form" class="contact-form" action="../process_data/load_booking.php" method="post">
+                        <form id="menu-item-form" class="contact-form" action="../process_data/load_booking.php" method="post">
                          <div class="col-lg-12 ">
                              <p>Filter Reservations:</p>
                          </div>
