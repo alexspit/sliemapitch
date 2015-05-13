@@ -1,0 +1,7 @@
+# robots.txt for http://www.sliemapitch.com
+
+User-agent: *
+Disallow: /process_data/ 
+Disallow: /logged.php
+Disallow: /booking_confirmation.php
+Disallow: /backend/
