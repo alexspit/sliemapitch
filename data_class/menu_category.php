@@ -14,7 +14,7 @@ class menu_category {
     
     public function __construct($name = null)
     {
-           $this->db = new db_connection(); 
+          $this->db = new db_connection(); 
           
           if ($name){
               if(is_numeric($name)) {

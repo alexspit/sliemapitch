@@ -100,7 +100,7 @@ $reservation = new reservation();
     
         
         
-        <h1 class="navbar-brand navbar-brand_"><a href="index.php"><img alt="Sliema Pitch Restaurant & Lounge" src="../img/logo3.png"></a></h1> 
+        <h1 class="navbar-brand navbar-brand_"><a href="../index.php"><img alt="Sliema Pitch Restaurant & Lounge" src="../img/logo3.png"></a></h1> 
         <div class="menuheader">
             <nav class="navbar navbar-default navbar-static-top tm_navbar" role="navigation">
                 <ul class="nav sf-menu">
