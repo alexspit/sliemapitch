@@ -2204,7 +2204,7 @@ img {
     padding-top: 32px;
 }
 
-.booking-margin{
+.booking-margin, .menu_item-margin{
     margin-left: 10px;
 }
 
@@ -2218,7 +2218,7 @@ img {
 }
 
 .modal-dialog {
-  padding-top: 15%;
+  //padding-top: 5%;
 }
 
 .modal-content {
@@ -2308,7 +2308,7 @@ nav p {
 }
 
 
-.booking-details{
+.booking-details, .menu_item-details{
     color: gray;
     margin-top: -20px;
     font-size: 12px;
@@ -2317,17 +2317,18 @@ nav p {
     
 }
 
-.booking:hover {
+.booking:hover, .menu_item:hover{
    background-color: rgb(247, 247, 247);
    padding-top: 20px;
 }
 
-.booking:hover .booking-details{
+.booking:hover .booking-details, .menu_item:hover .menu_item-details{
   display:inline;
 }
 
-.booking{
+.booking, .menu_item{
     padding-top: 10px;
+    margin-top: 10px;
 }
 
 select{
@@ -2376,4 +2377,45 @@ select{
 
 #reservations_textarea{
     height: 142px;
+}
+
+
+
+
+#addmenumodal input[type=text], #addmenumodal input[type=number], #addmenumodal textarea{
+    outline: none;
+	box-shadow: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	font-family: 'Arial', sans-serif;
+	font-size: 14px;
+	line-height: 24px;
+	font-weight: 400;
+	color: #3e454c;
+	width: 100%;
+	height: 41px;
+	border-radius: 0;
+	padding: 8px 10px 7px 14px;
+	border: 1px solid #dddddd;
+	background: #f5f5f5;
+}
+
+
+
+#addmenumodal textarea{
+	height: 120px;
+	resize: none;	
+	overflow: auto;
+}
+
+
+.modal-footer button{
+  float: none;
+
+}
+
+.modal-footer .btn + .btn {
+    margin-left:0;
 }

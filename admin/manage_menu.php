@@ -21,31 +21,85 @@ include 'backend_header.php';
 $categories = new menu_category();
 $menu = new menu_item();
 
-$menu->category = new menu_category(1);
-$menu->name = "BruscettaCaprese";
-$menu->description = "LOL";
-$menu->price = 22.90;
-$menu->vegetarian = 1;
-$menu->spicey = 1;
-$menu->gluten_free = 1;
-$menu->featured = 1;
 
-
-//$id = $menu->addMenuItem();
-
- 
-
-if ($menu->updateMenuItem(5)){
-    echo "Success";
-}
-else
-{
-    echo "Fail to delete";
-}
 //var_dump($menu); exit;
 //echo $cat->category_name; exit;
 
 ?>
+<div class="modal fade" id="addmenumodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style='background-color: #e74c3c;'>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:white;">Add a new Menu Item</h4>
+      </div>  
+        <form id='menu_form' action="../process_data/add_menu_item.php" method="post">
+                <div class="modal-body">
+                    
+                     <div class="container-fluid">
+                        <div class="row">                        
+                          <div class="col-md-12">
+                            
+                            <label for="menuitem_category" class="control-label">Category:</label>
+                            <?php $categories->getDropDownAddItem();?>
+                  
+                          </div>
+                        </div>
+                         
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="menuitem_name" class="control-label">Item Name:</label>
+                                <input type="text" class="form-control" name="menuitem_name" id="menuitem_name">
+                            </div>
+                          
+                        </div>
+                         <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                 <label for="menuitem_price" class="control-label">Price:</label>
+                                <input type="number" step="any" class="form-control" name="menuitem_price" id="menuitem_price">
+                            </div>
+                        </div>
+                         <br>
+                        <div class="row">
+                          <div class="col-md-12">
+                                <label for="product_description" class="control-label">Description:</label>
+                                <textarea class="form-control" style="width:100%;" name="menuitem_description" id="menuitem_description"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-sm-3 col-xs-6">
+                                <input type="checkbox" name="vegetarian" id="vegetarian" value="1">
+                                <label for="vegetarian" class="control-label">Vegetarian</label>
+                          </div>
+                          <div class="col-sm-3 col-xs-6">
+                                <input type="checkbox" name="spicy" id="spicy" value="1">
+                                <label for="spicy" class="control-label">Spicy</label>
+                          </div>
+                          <div class="col-sm-3 col-xs-6">
+                                <input type="checkbox" name="gluten_free" id="gluten_free" value="1">
+                                <label for="gluten_free" class="control-label">Gluten Free</label>
+                          </div>
+                          <div class="col-sm-3 col-xs-6">
+                                <input type="checkbox" name="featured" id="featured" value="1">
+                                <label for="featured" class="control-label">Featured</label>
+                          </div>
+                                                      
+                        </div>
+                      </div>   
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    
+                  <button class="btn btn-primary" type="submit">Add</button>
+                </div>
+       </form>
+    </div>
+  </div>
+</div>
+
 
 <div class="row_4">  
         <div class="container">
@@ -55,36 +109,60 @@ else
                     <div class="col-lg-10 col-sm-8 col-xs-12">
                         <h2 id="reservations">Menu Management</h2>
                     </div>
-                    <div class="col-lg-2 col-sm-4 " >
-                      <!--  <select id="menu_category_filter" name="menu_category_filter" style="margin-top: 30px;" form="contact-form">
-                               <option disabled="" selected="" style="display:none;">Menu Category:</option>
-                               <option>Starters</option>
-                               <option>Salads</option> 
-                               <option>Pasta</option>   
-                               <option>Pizza</option> 
-                               <option>Mains</option> 
-                               <option>Desserts</option>  
-                        </select>-->
-                        
+                    <div class="col-lg-2 col-sm-4 " >                        
                         <?php $categories->getDropDown(); ?>
                     </div>
                     
                 </div>
                  
-                <div id="showmenuitems">              
-                
+                <div id="showmenuitems"> 
+                    <?php 
+                    $menu->getMenuItems();
+                   
+                    ?>
+                   <!--
+                    <div class="menu_item" >
+                    <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <h3 class="red booking-margin">Bruscetta</h3> 
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-2 col-xs-6">
+                                        <p class="booking-margin">$5.90</p> 
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+                                        <p class="booking-margin">Starters</p> 
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
+                                        <a href="edit_menu_item.php?id=1" data-type="submit" class="btn btn-primary btn1">                                        
+                                            <span class="glyphicon glyphicon-edit"></span> 
+                                        </a>  
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
+                                        <a href="delete_menu_item.php?id=1" data-type="submit" class="btn btn-primary btn1">
+                                           <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </div>       
+                     </div>
+                     <div class="row">
+                                    <hr class="hidden-xs">
+                                    <div class="hidden-xs col-sm-offset-8 col-sm-4"> 
+                                         <p class="menu_item-details">Added on 21/11/1991 at 20:00</p> 
+                                    </div>          
+                     </div>
+                 </div>
+                -->
                 </div>
-                
+                <div style="height:20px; width:100%;"></div>
                 
                 <div class="row">
                     <div id="form">
-                        <form id="menu-item-form" class="contact-form" action="../process_data/add_menu_item.php" method="post">
+                        <form id="menu_item-form" class="menu_item-form" action="../process_data/add_menu_item.php" method="post">
                          
                         
                          <div class="col-sm-12">
                               <button class="btn btn-primary "  style="float:none;"id="submit" type="button" value="Add Menu Item">Upload PDF</button>
                               
-                              <button class="btn btn-primary" style="margin-left: 10px; float:none;" id="submit" type="submit" value="Add Menu Item">Add Menu Item</button>
+                              <button class="btn btn-primary" style="float:none;" id="submit" type="submit" value="Add Menu Item" data-toggle="modal" data-target="#addmenumodal">Add Menu Item</button>
                         </div>
                         
                      </form>
@@ -96,7 +174,11 @@ else
     </div>
                     
                            
-                   
+ 
+
+
+
+
             
          
          <?php

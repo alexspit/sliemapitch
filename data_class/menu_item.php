@@ -15,7 +15,7 @@ include_once 'menu_category.php';
  */
 class menu_item {
     
-    public $item_id, $category, $name, $description, $price, $item_img, $date_added, $last_edited, $vegetarian, $spicey, $gluten_free, $featured;
+    public $item_id, $category, $name, $description, $price, $item_img, $date_added, $last_edited, $vegetarian, $spicy, $gluten_free, $featured;
     private $db;
     public function __construct($item_id = null)
     {
@@ -35,7 +35,7 @@ class menu_item {
         if(isset($this->item_id)){
             $link = $this->db->openConnection();
         
-            $sql = "SELECT c.category_name, c.category_img, c.category_id, m.name, m.description, m.price, m.item_img, m.date_added, m.last_edited, m.vegetarian, m.spicey, m.gluten_free, m.featured
+            $sql = "SELECT c.category_name, c.category_img, c.category_id, m.name, m.description, m.price, m.item_img, m.date_added, m.last_edited, m.vegetarian, m.spicy, m.gluten_free, m.featured
                     FROM menu_item m
                     INNER JOIN menu_category c ON ( c.category_id = m.category_id)
                     WHERE m.item_id = $this->item_id";
@@ -54,7 +54,7 @@ class menu_item {
                 $this->last_edited = $row['last_edited'];
                 $this->item_img = $row['item_img'];
                 $this->vegetarian = $row['vegetarian'];
-                $this->spicey = $row['spicey'];
+                $this->spicy = $row['spicy'];
                 $this->gluten_free = $row['gluten_free'];
                 $this->featured = $row['featured'];   
                 
@@ -75,8 +75,8 @@ class menu_item {
        
         $link = $this->db->openConnection();
               
-        $sql = "INSERT INTO menu_item (category_id, name, description, price, date_added, vegetarian, spicey, gluten_free, featured)"
-                . " VALUES (".$this->category->category_id.", '$this->name', '$this->description', $this->price, NOW(), $this->vegetarian, $this->spicey, $this->gluten_free, $this->featured) ";
+        $sql = "INSERT INTO menu_item (category_id, name, description, price, date_added, vegetarian, spicy, gluten_free, featured)"
+                . " VALUES (".$this->category->category_id.", '$this->name', '$this->description', $this->price, NOW(), $this->vegetarian, $this->spicy, $this->gluten_free, $this->featured) ";
       
         
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));          
@@ -110,7 +110,7 @@ class menu_item {
         
         $link = $this->db->openConnection();
          
-        $sql = 'UPDATE menu_item SET category_id='.$this->category->category_id.', name="'.$this->name.'", description="'.$this->description.'", price='.$this->price.', last_edited="'.$currentDateTime.'", vegetarian='.$this->vegetarian.', spicey='.$this->spicey.', gluten_free='.$this->gluten_free.', featured='.$this->featured.''
+        $sql = 'UPDATE menu_item SET category_id='.$this->category->category_id.', name="'.$this->name.'", description="'.$this->description.'", price='.$this->price.', last_edited="'.$currentDateTime.'", vegetarian='.$this->vegetarian.', spicy='.$this->spicy.', gluten_free='.$this->gluten_free.', featured='.$this->featured.''
                 . ' WHERE item_id='.$id;
              
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
@@ -128,53 +128,51 @@ class menu_item {
                             
         $link = $this->db->openConnection();
         
-        $sql = "SELECT c.category_name, m.name
+        $sql = "SELECT c.category_id, c.category_name, m.name, m.price, m.item_id, m.date_added
                 FROM menu_item m
                 INNER JOIN menu_category c ON ( c.category_id = m.category_id ) ";
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
                      
-        $tmpstr = '<div id="result">';
+        $tmpstr = '';
         while($row = mysqli_fetch_array($result))
         {
-           $res = new reservation();
+           $this->category = new menu_category($row['category_id']);
            
-           $res->reservation_id = $row['booking_id'];
-           $res->name = $row['name'];
-           $res->area = $row['side'];
-           $res->period = $row['period'];
-           $res->no_of_people = $row['no_of_people'];
-           $res->status = $row['status'];
-           $res->datetime = $row['date'];
-           $res->date_added = $row['date_added'];
+           $this->name = $row['name'];
+           $this->item_id = $row['item_id'];
+           $this->price = $row['price'];
+           $this->date_added= $row['date_added'];
+          
         
             
-           $tmpstr .= '<div class="booking" >
+           $tmpstr .= '<div class="menu_item" >
                     <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
-                                        <h3 class="red booking-margin">'.$res->name.'</h3> 
+                            <form action="../process_data/edit_menu_item.php?id='.$this->item_id.'" method="post" id="form_'.$this->item_id.'" class="menuitem_form">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <h3 class="red menu_item-margin">'.$this->name.'</h3> 
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-2 col-xs-6">
-                                        <p class="booking-margin">'.$res->getShortDate().' for '.$res->period.'</p> 
+                                        <p class=" menu_item-margin">&#8364;'.$this->price.'</p> 
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                        <p class="booking-margin">'.$res->area.' for '.$res->no_of_people.'</p> 
+                                    <div class="col-lg-3 col-md-3 col-sm-2 col-xs-6">
+                                        <p class=" menu_item-margin">'.ucfirst($this->category->category_name).'</p> 
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-9">
-                                        <a href="booking_confirmation.php?id='.$res->reservation_id.'#booking_confirmation" style="width: 100%" data-type="submit" class="'.$res->status.' btn btn-primary btn1">
-                                            '.$res->status.' 
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
+                                        <a data-type="submit" class="btn btn-primary btn1">                                        
                                             <span class="glyphicon glyphicon-edit"></span> 
                                         </a>  
                                     </div>
-                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3">
-                                        <a href="../process_data/delete_booking.php?id='.$res->reservation_id.'" data-type="submit" class="'.$res->status.' btn btn-primary btn1">
-                                             <span class="glyphicon glyphicon-trash"></span>
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
+                                        <a href="../process_data/delete_menu_item.php?id='.$this->item_id.'" class="btn btn-primary btn1">
+                                           <span class="glyphicon glyphicon-trash"></span>
                                         </a>
-                                    </div>       
+                                    </div>   
+                             </form>
                      </div>
                      <div class="row">
                                     <hr class="hidden-xs">
                                     <div class="hidden-xs col-sm-offset-8 col-sm-4"> 
-                                         <p class="booking-details">Booked on '.$res->date_added.'</p> 
+                                         <p class="menu_item-details">Added on '.$this->date_added.'</p> 
                                     </div>          
                      </div>
                  </div>';
@@ -182,7 +180,7 @@ class menu_item {
                              
     }
     
-    $tmpstr .= '</div>';
+    
     
     $this->db->closeConnection();
     

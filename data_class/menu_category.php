@@ -68,7 +68,8 @@ class menu_category {
         
         $sql = "SELECT category_id, category_name FROM `menu_category`";
         $string = '<select id="menu_category_filter" name="menu_category_filter" style="margin-top: 30px;" form="contact-form">
-                               <option disabled="" selected="" style="display:none;">Menu Category:</option>';
+                               <option disabled="" selected="" style="display:none;">Menu Category:</option>
+                               <option value="0">All</option>';
         
       
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
@@ -86,5 +87,27 @@ class menu_category {
   
    }
     
+   public function getDropDownAddItem(){
+        $link = $this->db->openConnection();
+        
+        $sql = "SELECT category_id, category_name FROM `menu_category`";
+        $string = '<select id="menu_category_filter" name="menu_category_filter" style="margin-bottom: 20px;">
+                               <option disabled="" selected="" style="display:none;">Menu Category:</option>';
+        
+      
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+        
+        while($row = mysqli_fetch_array($result))
+        {
+            
+            $string .= '<option value="'.$row['category_id'].'">'.ucwords($row['category_name']).'</option>';  
+        }
+         
+        $string .= '</select>';
+         $this->db->closeConnection();
+        
+        echo $string;
+  
+   }
     
 }

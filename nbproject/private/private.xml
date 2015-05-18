@@ -4,19 +4,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/admin/logged.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/css/style.css</file>
             <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/data_class/menu_category.php</file>
-            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/index.php</file>
-            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/footer.php</file>
-            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/process_data/load_booking.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/process_data/confirm_booking.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/css/style2.css</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/process_data/delete_menu_item.php</file>
             <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/data_class/menu_item.php</file>
-            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/admin/login_process.php</file>
-            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/js/myscript.js</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/process_data/add_booking.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/admin/index.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/process_data/add_menu_item.php</file>
             <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/data_class/reservation.php</file>
-            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/modal.php</file>
-            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/header.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/css/bootstrap.css</file>
             <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/admin/manage_menu.php</file>
             <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/admin/backend_header.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/process_data/delete_booking.php</file>
             <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/reservations.php</file>
+            <file>file:/C:/Xampp/htdocs/GitHub/sliemapitch/admin/logout.php</file>
         </group>
     </open-files>
 </project-private>
