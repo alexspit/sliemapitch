@@ -2382,7 +2382,7 @@ select{
 
 
 
-#addmenumodal input[type=text], #addmenumodal input[type=number], #addmenumodal textarea{
+#addmenumodal input[type=text], #addmenumodal input[type=number], #addmenumodal textarea,#menucategorymodal input[type=text], #menucategorymodal input[type=number], #menucategorymodal textarea{
     outline: none;
 	box-shadow: none;
 	-webkit-box-sizing: border-box;
@@ -2404,7 +2404,7 @@ select{
 
 
 
-#addmenumodal textarea{
+#addmenumodal textarea, #menucategorymodal textarea{
 	height: 120px;
 	resize: none;	
 	overflow: auto;
@@ -2419,3 +2419,5 @@ select{
 .modal-footer .btn + .btn {
     margin-left:0;
 }
+
+

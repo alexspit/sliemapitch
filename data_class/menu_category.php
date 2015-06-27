@@ -26,7 +26,38 @@ class menu_category {
               $this->get();
           }
           
+          $this->category_img = "default.jpg";
+          
  
+    }
+    
+    public function add(){
+        if($this){
+            $link = $this->db->openConnection();
+
+            $sql = "INSERT INTO menu_category (category_name,category_img) VALUES ('$this->category_name', '$this->category_img')";
+
+
+            $result = mysqli_query($link, $sql) or die(mysqli_error($link));          
+
+            $category_id = mysqli_insert_id($link);
+            $this->db->closeConnection(); 
+            return $category_id;
+        }
+    }
+    
+      public function delete(){
+               
+        $link = $this->db->openConnection();
+         
+        $sql = "DELETE FROM menu_category WHERE category_id=$this->category_id";
+         
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
+         
+        $success = ($link->affected_rows > 0 ? true : false); 
+        $this->db->closeConnection(); 
+        
+        return $success;
     }
     
     
@@ -69,15 +100,14 @@ class menu_category {
         $sql = "SELECT category_id, category_name FROM `menu_category`";
         $string = '<select id="menu_category_filter" name="menu_category_filter" style="margin-top: 30px;" form="contact-form">
                                <option disabled="" selected="" style="display:none;">Menu Category:</option>
-                               <option value="0">All</option>';
+                               <option value="0">ALL</option>';
         
       
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
         
         while($row = mysqli_fetch_array($result))
-        {
-            
-            $string .= '<option value="'.$row['category_id'].'">'.ucwords($row['category_name']).'</option>';  
+        {  
+            $string .= '<option value="'.$row['category_id'].'">'.strtoupper($row['category_name']).'</option>';  
         }
          
         $string .= '</select>';
@@ -104,6 +134,40 @@ class menu_category {
         }
          
         $string .= '</select>';
+         $this->db->closeConnection();
+        
+        echo $string;
+  
+   }
+    
+     public function getList(){
+        $link = $this->db->openConnection();
+        
+        $sql = "SELECT category_id, category_name FROM `menu_category`";
+      
+        $string = "";
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+        
+        while($row = mysqli_fetch_array($result))
+        {
+            
+            //$string .= '<option value="'.$row['category_id'].'">'.ucwords($row['category_name']).'</option>';  
+            
+            $string .= '<div class="menu_category row" id="menu_category_'.$row['category_id'].'">
+                    
+                            <form action="../process_data/delete_menu_category.php" method="post" class="menucategory_form">
+                                    <div class="col-xs-9">
+                                        <h3 class="blue">'.ucwords($row['category_name']).'</h3> 
+                                    </div>
+                                    
+                                    <div class="col-xs-3">
+                                        <input type="hidden" name="id" value="'.$row['category_id'].'">
+                                        <button class="btn btn-primary" type="submit"><span class="fa fa-trash-o"></span></button>  
+                                    </div>                              
+                             </form>
+                        </div>';
+        }
+         
          $this->db->closeConnection();
         
         echo $string;

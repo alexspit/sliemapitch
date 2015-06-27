@@ -219,5 +219,100 @@ $('#options').change(function(){
 
 
 
+//Menu Category Management
+//Adding new menu category
+$('#add_menucategory').submit(function(e){
+    e.preventDefault();
+    var $this = $(this);
+    var data = $this.serialize();
+    var url = $this[0].action;
+    var type = $this[0].method;
+    
+    console.log(url);
+    console.log(type);
+    
+    $.ajax({
+             type: type,
+             url: url,
+             data: data,
+             success: function(data){
+                        if(data.success){             
+                                var form = '<div class="menu_category row" id="menu_category_'+data.category.category_id+'">\n\
+                                                <form action="../process_data/delete_menu_category.php" method="post" id="form_'+data.category.category_id+'" class="menucategory_form">\n\
+                                                      <div class="col-xs-9"><h3 class="blue">'+data.category.category_name+' </h3></div>\n\ \n\
+                                                       <input type="hidden" name="id" value="'+data.category.category_id+'">\n\
+                                                      <div class="col-xs-3"> <button class="btn btn-primary" type="submit"><span class="fa fa-trash-o"></span></button></div> \n\
+                                                </form>\n\
+                                               </div>';
+                                $('#menu_categories').append(form); 
+                                $('#menu_category_filter').append($('<option>', {value:data.category.catergory_id, text:data.category.category_name.toUpperCase()}));
+                                $('#menucategory_name').val("");
+                                
+                               
+                        }
+                        else
+                        {
+                            alert(data.message);
+                        }
+                      },
+             failure: function(errMsg) {
+                         alert(errMsg);
+                      },
+
+            });
+})
+
+
+$('body').on("submit", ".menucategory_form",  function(e){
+    e.preventDefault();
+    var $this = $(this);
+    var data = $this.serialize();
+    var url = $this[0].action;
+    var type = $this[0].method;
+    
+    $.ajax({
+             type: type,
+             url: url,
+             data: data,
+             success: function(data){
+                        if(data.success){             
+                                $this.remove();    
+                                $('#menu_category_filter option[value="'+data.id+'"]').remove();
+                        }
+                        else
+                        {
+                            alert(data.message);
+                        }
+                      },
+             failure: function(errMsg) {
+                         alert(errMsg);
+                      },
+
+            });
+    
+    
+});
+
+$('#menu_category_filter').on('change', function(){
+    var text = $("#menu_category_filter option:selected").text();
+    $('#addmenuitem_header').text(text);
+    $('#menuitem_category').val($(this).val());
+    
+})
+
+$('#addmenuitem_button').on('click', function(e){
+    e.preventDefault();
+    if (!$("#menu_category_filter option:selected").length) {
+        alert("Not Selected");
+    }
+});
+
+
+
+
+
+
+
+
 
 }); // end ready

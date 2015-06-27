@@ -15,10 +15,10 @@ $menuitem = new menu_item();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    
-    if(isset($_POST["menu_category_filter"]) && !empty($_POST["menu_category_filter"]))
+   
+    if(isset($_POST["menuitem_category"]) && !empty($_POST["menuitem_category"]))
     {
-        $menuitem->category = new menu_category($db->filter($_POST["menu_category_filter"]));
+        $menuitem->category = new menu_category($db->filter($_POST["menuitem_category"]));
     }
     else
     {
@@ -61,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $menuitem->gluten_free = isset($_POST['gluten_free']) && $_POST['gluten_free'] ? 1 : 0;
     $menuitem->featured = isset($_POST['featured']) && $_POST['featured'] ? 1 : 0;
     
+   
     if(isset($_SESSION["errors"]))
     {
         header("Location: ../admin/manage_menu.php");

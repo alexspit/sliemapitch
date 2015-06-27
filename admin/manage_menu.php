@@ -38,18 +38,18 @@ $menu = new menu_item();
                     
                      <div class="container-fluid">
                         <div class="row">                        
-                          <div class="col-md-12">
-                            
-                            <label for="menuitem_category" class="control-label">Category:</label>
-                            <?php $categories->getDropDownAddItem();?>
-                  
+                          <div class="col-md-9">                        
+                              <h2 id="addmenuitem_header">Starter</h2>
                           </div>
+                            
+                           
                         </div>
                          
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="menuitem_name" class="control-label">Item Name:</label>
                                 <input type="text" class="form-control" name="menuitem_name" id="menuitem_name">
+                                <input type="hidden" class="form-control" name="menuitem_category" id="menuitem_category" value="0">
                             </div>
                           
                         </div>
@@ -90,15 +90,63 @@ $menu = new menu_item();
                       </div>   
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" >Add</button>
                   
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                     
-                  <button class="btn btn-primary" type="submit">Add</button>
                 </div>
-       </form>
+      </form>
     </div>
   </div>
 </div>
+
+<!-- MANAGE CATEGORIES --->
+<div class="modal fade" id="menucategorymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style='background-color: #e74c3c;'>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:white;">Menu Categories Management</h4>
+      </div>  
+        
+                <div class="modal-body">
+                    
+                     <div class="container-fluid">
+                         <div id="menu_categories">
+                           <?php echo $categories->getList(); ?>
+                         </div>
+                        <hr class="hidden-xs">
+                        <form name="add_menucategory" id="add_menucategory" action="../process_data/add_menu_category.php" method="post">
+
+                            <div class="row">
+                                <div class="col-xs-9">
+
+                                    <input type="text" placeholder="Add New Menu Category" class="form-control" name="menucategory_name" id="menucategory_name">
+
+                                </div>
+                                <div class="col-xs-3">
+                                     <button class="btn btn-primary" type="submit"><span class="fa fa-plus"></span></button>  
+                                </div>
+
+
+
+                            </div>
+                        </form>
+                     </div>   
+                     
+                </div>
+                <div class="modal-footer">
+                  
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                 
+                </div>
+       
+    </div>
+  </div>
+</div>
+
+
+
 
 
 <div class="row_4">  
@@ -160,9 +208,9 @@ $menu = new menu_item();
                          
                         
                          <div class="col-sm-12">
-                              <button class="btn btn-primary "  style="float:none;"id="submit" type="button" value="Add Menu Item">Upload PDF</button>
+                              <button class="btn btn-primary "  style="float:none;"id="managemenucategory_button" type="button" value="Manage Categories" data-toggle="modal" data-target="#menucategorymodal">Manage Categories</button>
                               
-                              <button class="btn btn-primary" style="float:none;" id="submit" type="submit" value="Add Menu Item" data-toggle="modal" data-target="#addmenumodal">Add Menu Item</button>
+                              <button class="btn btn-primary" style="float:none;" id="addmenuitem_button" type="submit" value="Add Menu Item" data-toggle="modal" data-target="#addmenumodal">Add Menu Item</button>
                         </div>
                         
                      </form>
