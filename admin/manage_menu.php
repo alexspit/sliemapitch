@@ -38,8 +38,10 @@ $menu = new menu_item();
                     
                      <div class="container-fluid">
                         <div class="row">                        
-                          <div class="col-md-9">                        
-                              <h2 id="addmenuitem_header">Starter</h2>
+                          <div class="col-md-12">                        
+                               
+                                 <?php $categories->getDropDown(); ?>                   
+                              
                           </div>
                             
                            

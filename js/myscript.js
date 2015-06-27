@@ -245,8 +245,14 @@ $('#add_menucategory').submit(function(e){
                                                 </form>\n\
                                                </div>';
                                 $('#menu_categories').append(form); 
-                                $('#menu_category_filter').append($('<option>', {value:data.category.catergory_id, text:data.category.category_name.toUpperCase()}));
+                                $('#menu_category_filter').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
                                 $('#menucategory_name').val("");
+                                
+                               // var option = '<option value="'+data.category.category_id+'">'+data.category.category_name.toUpperCase()+'</option>';
+                               // $('#menu_category_filter').append(option);
+                                
+                                console.log(option);
+                                console.log($('#menu_category_filter'));
                                 
                                
                         }
@@ -277,6 +283,9 @@ $('body').on("submit", ".menucategory_form",  function(e){
              success: function(data){
                         if(data.success){             
                                 $this.remove();    
+                                
+                                console.log( $('#menu_category_filter option[value="'+data.id+'"]'));
+                                console.log('#menu_category_filter');
                                 $('#menu_category_filter option[value="'+data.id+'"]').remove();
                         }
                         else
@@ -287,19 +296,16 @@ $('body').on("submit", ".menucategory_form",  function(e){
              failure: function(errMsg) {
                          alert(errMsg);
                       },
-
-            });
-    
-    
+            });    
 });
 
 $('#menu_category_filter').on('change', function(){
     var text = $("#menu_category_filter option:selected").text();
-    $('#addmenuitem_header').text(text);
-    $('#menuitem_category').val($(this).val());
+  //  $('#addmenuitem_header').text(text);
+   // $('#menuitem_category').val($(this).val());
     
 })
-
+/*
 $('#addmenuitem_button').on('click', function(e){
     e.preventDefault();
     if (!$("#menu_category_filter option:selected").length) {
@@ -307,7 +313,7 @@ $('#addmenuitem_button').on('click', function(e){
     }
 });
 
-
+*/
 
 
 
