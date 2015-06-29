@@ -40,7 +40,7 @@ $menu = new menu_item();
                         <div class="row">                        
                           <div class="col-md-12">                        
                                
-                                 <?php $categories->getDropDown(); ?>                   
+                                 <?php $categories->getDropDownAddItem(); ?>                   
                               
                           </div>
                             
@@ -51,7 +51,7 @@ $menu = new menu_item();
                             <div class="col-md-12">
                                 <label for="menuitem_name" class="control-label">Item Name:</label>
                                 <input type="text" class="form-control" name="menuitem_name" id="menuitem_name">
-                                <input type="hidden" class="form-control" name="menuitem_category" id="menuitem_category" value="0">
+                               <!-- <input type="hidden" class="form-control" name="menuitem_category" id="menuitem_category" value="0">-->
                             </div>
                           
                         </div>

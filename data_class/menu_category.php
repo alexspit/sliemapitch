@@ -121,7 +121,7 @@ class menu_category {
         $link = $this->db->openConnection();
         
         $sql = "SELECT category_id, category_name FROM `menu_category`";
-        $string = '<select id="menu_category_filter" name="menu_category_filter" style="margin-bottom: 20px;">
+        $string = '<select id="menuitem_category" name="menuitem_category" style="margin-bottom: 20px;">
                                <option disabled="" selected="" style="display:none;">Menu Category:</option>';
         
       
