@@ -219,6 +219,93 @@ $('#options').change(function(){
 
 
 
+var add_errormessage = $('#add_errormessage');
+add_errormessage.hide();
+
+//Menu Category Management
+//Adding new menu category
+$('#add_menuitem').submit(function(e){
+    add_errormessage.removeClass('alert-danger');
+    
+    $('#add_menuitem input, #add_menuitem select, #add_menuitem textarea').each(function(){
+        $(this).removeClass('error');
+        $(this).removeClass('success');
+        
+    });
+    
+    e.preventDefault();
+    var $this = $(this);
+    var data = $this.serialize();
+    var url = $this[0].action;
+    var type = $this[0].method;
+    
+    //console.log(url);
+    //console.log(type);
+    //console.log(data);
+    
+     $.ajax({
+             type: type,
+             url: url,
+             data: data,
+             success: function(data){
+                        if(data.success){ 
+                             console.log(data);
+                             
+                             
+                     
+                     
+                                $('#menu_categories').append(form); 
+                             $('#addmenumodal').modal('hide');
+                        }
+                        else{
+                            
+                            //console.log(data.errors);
+                            
+                            $.each(data.errors, function( index, value ) {
+                                
+                                
+                                                              
+                                if(value.error == "add")
+                                {
+                                    add_errormessage.text(value.message).addClass('alert-danger').show(); 
+                                }
+                                if(value.error == "category"){
+                                    $('#menuitem_category').addClass('error');
+                                } 
+                                if(value.error == "name"){
+                                    $('#menuitem_name').addClass('error');
+                                } 
+                                if(value.error == "price"){
+                                    $('#menuitem_price').addClass('error');
+                                }
+                                if(value.error == "description"){
+                                    $('#menuitem_description').addClass('error');
+                                }
+                                
+                              });
+                            
+                        }
+                      },
+             failure: function(errMsg) {
+                         alert(errMsg);
+                      },
+
+            });
+   
+})
+
+//reset modal
+$('.modal').on('hidden.bs.modal', function(){
+    $(this).find('form')[0].reset();
+    $('#add_errormessage').hide();
+    
+     $('#add_menuitem input, #add_menuitem select, #add_menuitem textarea').each(function(){
+        $(this).removeClass('error');
+        $(this).removeClass('success');
+        
+    });
+});
+
 //Menu Category Management
 //Adding new menu category
 $('#add_menucategory').submit(function(e){
@@ -246,10 +333,10 @@ $('#add_menucategory').submit(function(e){
                                                </div>';
                                 $('#menu_categories').append(form); 
                                 $('#menu_category_filter').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
+                                $('#menuitem_category').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
                                 $('#menucategory_name').val("");
                                 
-                               // var option = '<option value="'+data.category.category_id+'">'+data.category.category_name.toUpperCase()+'</option>';
-                               // $('#menu_category_filter').append(option);
+                              
                                 
                                 console.log(option);
                                 console.log($('#menu_category_filter'));
@@ -271,6 +358,10 @@ $('#add_menucategory').submit(function(e){
 
 $('body').on("submit", ".menucategory_form",  function(e){
     e.preventDefault();
+    
+    if (confirm('If you delete a category, all menu items associated with that category will be deleted. Are you sure you want to delete this category?')) {
+    // Save it!
+    
     var $this = $(this);
     var data = $this.serialize();
     var url = $this[0].action;
@@ -287,6 +378,7 @@ $('body').on("submit", ".menucategory_form",  function(e){
                                 console.log( $('#menu_category_filter option[value="'+data.id+'"]'));
                                 console.log('#menu_category_filter');
                                 $('#menu_category_filter option[value="'+data.id+'"]').remove();
+                                $('#menuitem_category option[value="'+data.id+'"]').remove();
                         }
                         else
                         {
@@ -296,15 +388,13 @@ $('body').on("submit", ".menucategory_form",  function(e){
              failure: function(errMsg) {
                          alert(errMsg);
                       },
-            });    
+            }); 
+            
+    } else {
+        // Do nothing!
+    }
 });
 
-$('#menu_category_filter').on('change', function(){
-    var text = $("#menu_category_filter option:selected").text();
-  //  $('#addmenuitem_header').text(text);
-   // $('#menuitem_category').val($(this).val());
-    
-})
 /*
 $('#addmenuitem_button').on('click', function(e){
     e.preventDefault();

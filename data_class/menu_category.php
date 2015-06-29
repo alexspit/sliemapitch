@@ -121,7 +121,7 @@ class menu_category {
         $link = $this->db->openConnection();
         
         $sql = "SELECT category_id, category_name FROM `menu_category`";
-        $string = '<select id="menuitem_category" name="menuitem_category" style="margin-bottom: 20px;">
+        $string = '<select id="menuitem_category" name="menuitem_category" style="margin-bottom: 20px;" required>
                                <option disabled="" selected="" style="display:none;">Menu Category:</option>';
         
       
@@ -130,7 +130,7 @@ class menu_category {
         while($row = mysqli_fetch_array($result))
         {
             
-            $string .= '<option value="'.$row['category_id'].'">'.ucwords($row['category_name']).'</option>';  
+            $string .= '<option value="'.$row['category_id'].'">'.strtoupper($row['category_name']).'</option>';  
         }
          
         $string .= '</select>';

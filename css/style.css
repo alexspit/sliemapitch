@@ -2420,4 +2420,14 @@ select{
     margin-left:0;
 }
 
+input.success, textarea.success, select.success{
+    border-color: green !important;
+    background: lightgreen !important;
+}
+
+input.error, textarea.error, select.error{
+    border-color: #ebccd1 !important;
+    background: #f2dede !important;
+    color: #a94442 !important;
+}
 

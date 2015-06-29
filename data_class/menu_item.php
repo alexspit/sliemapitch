@@ -74,16 +74,19 @@ class menu_item {
     {    
        
         $link = $this->db->openConnection();
+        
+        
               
-        $sql = "INSERT INTO menu_item (category_id, name, description, price, date_added, vegetarian, spicy, gluten_free, featured)"
-                . " VALUES (".$this->category->category_id.", '$this->name', '$this->description', $this->price, NOW(), $this->vegetarian, $this->spicy, $this->gluten_free, $this->featured) ";
-      
+            $sql = "INSERT INTO menu_item (category_id, name, description, price, date_added, vegetarian, spicy, gluten_free, featured)"
+                    . " VALUES (".$this->category->category_id.", '$this->name', '$this->description', $this->price, NOW(), $this->vegetarian, $this->spicy, $this->gluten_free, $this->featured) ";
+
+
+            $result = mysqli_query($link, $sql) or die(mysqli_error($link));          
+
+            $item_id = mysqli_insert_id($link);
+            $this->db->closeConnection(); 
+            return $item_id;
         
-        $result = mysqli_query($link, $sql) or die(mysqli_error($link));          
-        
-        $item_id = mysqli_insert_id($link);
-        $this->db->closeConnection(); 
-        return $item_id;
       
     }
     public function deleteMenuItem($id){
