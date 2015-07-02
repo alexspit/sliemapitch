@@ -9,7 +9,7 @@ include_once 'db_connection.php';
  */
 class menu_category {
     
-    public $category_id, $category_name, $category_img;
+    public $category_id, $category_name, $category_img, $category_order;
     private $db;
     
     public function __construct($name = null)
@@ -34,9 +34,10 @@ class menu_category {
     public function add(){
         if($this){
             $link = $this->db->openConnection();
-
-            $sql = "INSERT INTO menu_category (category_name,category_img) VALUES ('$this->category_name', '$this->category_img')";
-
+            $this->category_order = $this->count()+1;
+            
+            $sql = "INSERT INTO menu_category (category_name,category_img,category_order) VALUES ('$this->category_name', '$this->category_img', $this->category_order)";
+            
 
             $result = mysqli_query($link, $sql) or die(mysqli_error($link));          
 
@@ -87,7 +88,8 @@ class menu_category {
         {
             $this->category_id = $row['category_id'];
             $this->category_img = $row['category_img'];
-            $this->category_name = $row['category_name'];    
+            $this->category_name = $row['category_name']; 
+            $this->category_order = $row['category_order'];
         }
         $this->db->closeConnection();
         return $this;
@@ -97,7 +99,7 @@ class menu_category {
    public function getDropDown(){
         $link = $this->db->openConnection();
         
-        $sql = "SELECT category_id, category_name FROM `menu_category`";
+        $sql = "SELECT category_id, category_name FROM `menu_category` ORDER BY `category_order`";
         $string = '<select id="menu_category_filter" name="menu_category_filter" style="margin-top: 30px;" form="contact-form">
                                <option disabled="" selected="" style="display:none;">Menu Category:</option>
                                <option value="0">ALL</option>';
@@ -120,7 +122,7 @@ class menu_category {
    public function getDropDownAddItem(){
         $link = $this->db->openConnection();
         
-        $sql = "SELECT category_id, category_name FROM `menu_category`";
+        $sql = "SELECT category_id, category_name FROM `menu_category` ORDER BY `category_order`";
         $string = '<select id="menuitem_category" name="menuitem_category" style="margin-bottom: 20px;" required>
                                <option disabled="" selected="" style="display:none;">Menu Category:</option>';
         
@@ -143,7 +145,7 @@ class menu_category {
      public function getList(){
         $link = $this->db->openConnection();
         
-        $sql = "SELECT category_id, category_name FROM `menu_category`";
+        $sql = "SELECT category_id, category_name FROM `menu_category` ORDER BY `category_order`";
       
         //$string = "";
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
@@ -186,5 +188,44 @@ class menu_category {
         echo $string;
   
    }
+   
+   public function count(){
+        
+        $link = $this->db->openConnection();
+        
+        $sql = "SELECT COUNT(*) AS total FROM `menu_category`";
+         
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+                     
+        while($row = mysqli_fetch_array($result))
+        {
+            $total = $row['total'];           
+        }
+        $this->db->closeConnection();
+        return $total;
+   }
+   
+   public function reorder($list){
+        $link = $this->db->openConnection();
+       
+       $success = true;
+       foreach ($list as $order => $id) {
+            $order++;
+            $sql = "UPDATE `menu_category` SET `category_order`=$order WHERE `category_id`=$id";
+
+            $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+
+            if($result <= 0){
+                        $success = false;
+            }                 
+       }
+      
+        $this->db->closeConnection();
+        return $success;
+      
+       
+   }
+   
+  
     
 }

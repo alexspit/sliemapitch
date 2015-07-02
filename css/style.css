@@ -2445,3 +2445,8 @@ input.error, textarea.error, select.error{
     display: none;
 }
 
+.list-group-item-text {
+    font-family: "Open Sans";
+    text-transform: uppercase;
+}
+

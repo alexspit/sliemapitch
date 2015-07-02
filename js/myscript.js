@@ -344,14 +344,15 @@ $('#add_menucategory').submit(function(e){
     var url = $this[0].action;
     var type = $this[0].method;
     
-    console.log(url);
-    console.log(type);
-    
+    //console.log(url);
+    //console.log(type);
+
     $.ajax({
              type: type,
              url: url,
              data: data,
              success: function(data){
+                console.log(data);
                         if(data.success){             
                                                     
                                 var listitem = '<li data-id="'+data.category.category_id+'" class="list-group-item" id="menucategory_'+data.category.category_id+'">\n\
@@ -385,11 +386,25 @@ $('#add_menucategory').submit(function(e){
 $('#menu_categories').sortable();
 $('#menu_categories').sortable().bind('sortupdate', function() 
 {
+   
     var dataIDList = $('#menu_categories li').map(function(){ 
         return $(this).data("id");
-    }).get().join(",");
+    }).get();
 
-   console.log(dataIDList);
+    $.ajax({
+             type: 'post',
+             url: '../process_data/reorder_menu_category.php',
+             data: {reordered_list: dataIDList},
+             success: function(data){
+                            console.log(data);
+                      },
+             failure: function(errMsg) {
+                         alert(errMsg);
+                      },
+
+            });
+   
+   
 });
 /*
 $('body').on("submit", ".menucategory_form",  function(e){

@@ -2,6 +2,8 @@
 if (session_status() == PHP_SESSION_NONE) 
     {session_start();}
     
+error_reporting(E_ERROR | E_PARSE);
+    
 include_once '../data_class/db_connection.php';
 include_once '../data_class/menu_item.php';
 include_once '../data_class/menu_category.php';
@@ -30,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
       $response['message'] = "Category name not set";
     }
-  
 }
 else
 {
