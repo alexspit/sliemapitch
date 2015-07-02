@@ -1,50 +1,47 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) 
     {session_start();}
-    
-unset($_SESSION["success"]);
-unset($_SESSION["errors"]);
 
 include_once '../data_class/db_connection.php';
 include_once '../data_class/menu_item.php';
 
 $db = new db_connection();
 $menu = new menu_item();
+$response = array('success' => false, 'errors' => array(), 'id' => "");
+$id;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET")
 {
-    //$reservation = array();
-    
+   
     if(isset($_GET["id"]) && !empty($_GET["id"]))
     {
-        $success = $menu->deleteMenuItem($db->filter($_GET["id"]));
+        $id = $db->filter($_GET["id"]);
+       // $success = $menu->deleteMenuItem($db->filter($_GET["id"]));
     }
     else
     {
-      $_SESSION["errors"] .= "Error while deleting booking: 'Invalid booking ID'</br>"; 
+      array_push($response['errors'], array("error" => "id", "message" => "Menu Item ID missing'"));
     }
      
-    if(isset($_SESSION["errors"]))
-    {
-        header("Location: ../admin/logged.php");
+    if(count($response['errors']) == 0){    
+        if($menu->deleteMenuItem($id)){
+            $response['success'] = true; 
+            $response['id'] = $id;
+        }
+        else{
+             array_push($response['errors'], array("error" => "delete", "message" => "Error while deleting booking"));
+        }
     }
-    else if($success)
+    else 
     {
-      $_SESSION["success"] = true;
-      header("Location: ../admin/manage_menu.php");    
-    }
-    else
-    {
-      $_SESSION["success"] = flase;
-      header("Location: ../admin/manage_menu.php");
-    }
-    
-     
-    
-  
+        array_push($response['errors'], array("error" => "delete", "message" => "Errors present, contact system admin"));
+    } 
+}else{
+     array_push($response['errors'], array("error" => "request", "message" => "Access Denied'"));
 }
     
-    
+header('Content-Type: application/json');
+echo json_encode($response);
     
 
     

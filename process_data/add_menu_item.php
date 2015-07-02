@@ -162,9 +162,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                $response['success'] = true;
                $response['menuitem'] = $menuitem;
                
-               $response['menuitem_string'] .= '<div class="menu_item" >
+               $menuitem = $menuitem->get($menuitem->item_id);
+               $response['menuitem_string'] = '<div class="menu_item" id="menuitem_'.$menuitem->item_id.'">
                     <div class="row">
-                            <form action="../process_data/edit_menu_item.php?id='.$menuitem->item_id.'" method="post" id="form_'.$menuitem->item_id.'" class="menuitem_form">
+                          
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <h3 class="red menu_item-margin">'.$menuitem->name.'</h3> 
                                     </div>
@@ -180,11 +181,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                         </a>  
                                     </div>
                                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
-                                        <a href="../process_data/delete_menu_item.php?id='.$menuitem->item_id.'" class="btn btn-primary btn1">
+                                         <a href="../process_data/delete_menu_item.php?id='.$menuitem->item_id.'" class="menuitem_deletebtn btn btn-primary btn1">  
                                            <span class="glyphicon glyphicon-trash"></span>
                                         </a>
                                     </div>   
-                             </form>
+                             
                      </div>
                      <div class="row">
                                     <hr class="hidden-xs">
@@ -199,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
     else{
-        array_push($response['errors'], array("error" => "add", "message" => "Incomplete data supplied, error adding menu item into database")); 
+        array_push($response['errors'], array("error" => "add", "message" => "Incomplete data supplied, missing fields have been highlighted.")); 
     }
 }
 else

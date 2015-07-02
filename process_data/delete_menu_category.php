@@ -10,11 +10,11 @@ $category = new menu_category();
 
 $response = array('success' => false, 'message' => "");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
+if ($_SERVER["REQUEST_METHOD"] == "GET")
 {
-    if(isset($_POST["id"]) && !empty($_POST["id"]))
+    if(isset($_GET["id"]) && !empty($_GET["id"]))
     {
-        $category = new menu_category($db->filter($_POST["id"]));
+        $category = new menu_category($db->filter($_GET["id"]));
         
         if($category->delete()){
             $response['success'] = true;

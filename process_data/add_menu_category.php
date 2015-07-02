@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 { 
     if(isset($_POST["menucategory_name"]) && !empty($_POST["menucategory_name"]))
     {
-        $category->category_name = $_POST["menucategory_name"];
+        $category->category_name = strtolower($db->filter($_POST["menucategory_name"]));
         if($category->add() > 0){
             $response['success'] = true;
             $response['message'] = "New Category added successfully";

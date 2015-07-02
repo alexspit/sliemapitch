@@ -33,7 +33,7 @@ $menu = new menu_item();
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel" style="color:white;">Add a new Menu Item</h4>
       </div>  
-        <form id='add_menuitem' action="../process_data/add_menu_item.php" method="post">
+        <form id='add_menuitem' action="../process_data/add_menu_item.php" method="post" novalidate>
                 <div class="modal-body">
                     
                      <div class="container-fluid">
@@ -117,9 +117,9 @@ $menu = new menu_item();
                 <div class="modal-body">
                     
                      <div class="container-fluid">
-                         <div id="menu_categories">
+                         <ul class="list-group" id="menu_categories">
                            <?php echo $categories->getList(); ?>
-                         </div>
+                         </ul>
                         <hr class="hidden-xs">
                         <form name="add_menucategory" id="add_menucategory" action="../process_data/add_menu_category.php" method="post">
 
@@ -173,38 +173,18 @@ $menu = new menu_item();
                     $menu->getMenuItems();
                    
                     ?>
-                   <!--
-                    <div class="menu_item" >
-                    <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <h3 class="red booking-margin">Bruscetta</h3> 
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-2 col-xs-6">
-                                        <p class="booking-margin">$5.90</p> 
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-                                        <p class="booking-margin">Starters</p> 
-                                    </div>
-                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
-                                        <a href="edit_menu_item.php?id=1" data-type="submit" class="btn btn-primary btn1">                                        
-                                            <span class="glyphicon glyphicon-edit"></span> 
-                                        </a>  
-                                    </div>
-                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
-                                        <a href="delete_menu_item.php?id=1" data-type="submit" class="btn btn-primary btn1">
-                                           <span class="glyphicon glyphicon-trash"></span>
-                                        </a>
-                                    </div>       
-                     </div>
-                     <div class="row">
-                                    <hr class="hidden-xs">
-                                    <div class="hidden-xs col-sm-offset-8 col-sm-4"> 
-                                         <p class="menu_item-details">Added on 21/11/1991 at 20:00</p> 
-                                    </div>          
-                     </div>
-                 </div>
-                -->
+                  
                 </div>
+                
+                <button id="get_flight_data">Get Flight Data</button>
+                <div class="list-group col-sm-6" id="flight_data">
+                    
+                    
+                </div>
+             
+                
+                
+               
                 <div style="height:20px; width:100%;"></div>
                 
                 <div class="row">
@@ -222,6 +202,8 @@ $menu = new menu_item();
                     </div>
                 </div>
                 
+                
+               
             </div>
         </div>
     </div>

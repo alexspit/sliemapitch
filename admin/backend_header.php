@@ -33,7 +33,8 @@ $reservation = new reservation();
     <link rel="stylesheet" href="../css/touchTouch.css">
     <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css">
     <link rel="stylesheet" href="../css/animate.min.css">
-
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+    
 
     <!---------------------->
     <link rel="stylesheet" type="text/css" href="../css/common.css" />
@@ -42,6 +43,8 @@ $reservation = new reservation();
     
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery-migrate-1.2.1.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <script src="../js/jquery.sortable.js"></script>
     <script  src="../js/touchTouch.jquery.js"></script>
     <script src="../js/superfish.js"></script>
     <script src="../js/jquery.mobilemenu.js"></script>

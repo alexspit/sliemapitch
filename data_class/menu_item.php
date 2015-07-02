@@ -148,9 +148,9 @@ class menu_item {
           
         
             
-           $tmpstr .= '<div class="menu_item" >
+           $tmpstr .= '<div class="menu_item" id="menuitem_'.$this->item_id.'">
                     <div class="row">
-                            <form action="../process_data/edit_menu_item.php?id='.$this->item_id.'" method="post" id="form_'.$this->item_id.'" class="menuitem_form">
+                            
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <h3 class="red menu_item-margin">'.$this->name.'</h3> 
                                     </div>
@@ -161,16 +161,16 @@ class menu_item {
                                         <p class=" menu_item-margin">'.ucfirst($this->category->category_name).'</p> 
                                     </div>
                                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
-                                        <a data-type="submit" class="btn btn-primary btn1">                                        
+                                        <a href="../process_data/edit_menu_item.php?id='.$this->item_id.'" class="menuitem_editbtn btn btn-primary btn1">                                        
                                             <span class="glyphicon glyphicon-edit"></span> 
                                         </a>  
                                     </div>
                                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
-                                        <a href="../process_data/delete_menu_item.php?id='.$this->item_id.'" class="btn btn-primary btn1">
+                                        <a href="../process_data/delete_menu_item.php?id='.$this->item_id.'" class="menuitem_deletebtn btn-primary btn1">
                                            <span class="glyphicon glyphicon-trash"></span>
                                         </a>
                                     </div>   
-                             </form>
+                             
                      </div>
                      <div class="row">
                                     <hr class="hidden-xs">

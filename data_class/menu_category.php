@@ -145,15 +145,16 @@ class menu_category {
         
         $sql = "SELECT category_id, category_name FROM `menu_category`";
       
-        $string = "";
+        //$string = "";
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+        $string =  '';
         
         while($row = mysqli_fetch_array($result))
         {
             
             //$string .= '<option value="'.$row['category_id'].'">'.ucwords($row['category_name']).'</option>';  
             
-            $string .= '<div class="menu_category row" id="menu_category_'.$row['category_id'].'">
+           /* $string .= '<div class="menu_category row" id="menu_category_'.$row['category_id'].'">
                     
                             <form action="../process_data/delete_menu_category.php" method="post" class="menucategory_form">
                                     <div class="col-xs-9">
@@ -165,10 +166,22 @@ class menu_category {
                                         <button class="btn btn-primary" type="submit"><span class="fa fa-trash-o"></span></button>  
                                     </div>                              
                              </form>
-                        </div>';
+                        </div>';*/
+            
+            $string .= '<li data-id="'.$row['category_id'].'" class="list-group-item">
+                                
+                                <a href="../process_data/delete_menu_category.php?id='.$row['category_id'].'"><span class="fa fa-trash-o pull-right animated pulse"></span></a>
+                                   
+                                <p class="list-group-item-text"><span class="fa fa-arrows"></span>   '.ucwords($row['category_name']).'</p> 
+                            </li>';
+            
         }
+        
+       
          
          $this->db->closeConnection();
+         
+        
         
         echo $string;
   

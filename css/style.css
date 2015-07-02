@@ -2421,13 +2421,27 @@ select{
 }
 
 input.success, textarea.success, select.success{
-    border-color: green !important;
-    background: lightgreen !important;
+    //border-color: green !important;
+    border: 3px dotted green !important;
+    //background: lightgreen !important;
 }
 
 input.error, textarea.error, select.error{
-    border-color: #ebccd1 !important;
-    background: #f2dede !important;
-    color: #a94442 !important;
+    //border-color: #ebccd1 !important;
+    border: 3px dotted #a94442 !important;
+    //background: #f2dede !important;
+    //color: #a94442 !important;
+}
+
+.list-group-item:hover{
+    background: #f5f5f5;
+}
+
+.list-group-item:hover a{
+    display: inline;
+}
+
+.list-group-item a{
+    display: none;
 }
 

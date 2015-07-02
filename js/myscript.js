@@ -219,11 +219,13 @@ $('#options').change(function(){
 
 
 
+
+
+//Menu Item 
+//Adding new menu item
 var add_errormessage = $('#add_errormessage');
 add_errormessage.hide();
 
-//Menu Category Management
-//Adding new menu category
 $('#add_menuitem').submit(function(e){
     add_errormessage.removeClass('alert-danger');
     
@@ -239,31 +241,19 @@ $('#add_menuitem').submit(function(e){
     var url = $this[0].action;
     var type = $this[0].method;
     
-    //console.log(url);
-    //console.log(type);
-    //console.log(data);
-    
-     $.ajax({
+    $.ajax({
              type: type,
              url: url,
              data: data,
              success: function(data){
-                        if(data.success){ 
-                             console.log(data);
-                             
-                             
-                     
-                     
-                                $('#menu_categories').append(form); 
+                        console.log(data);
+                        if(data.success){                           
+                             $('#showmenuitems').append(data.menuitem_string); 
                              $('#addmenumodal').modal('hide');
                         }
                         else{
-                            
-                            //console.log(data.errors);
-                            
+                            //console.log(data.errors);                        
                             $.each(data.errors, function( index, value ) {
-                                
-                                
                                                               
                                 if(value.error == "add")
                                 {
@@ -287,14 +277,50 @@ $('#add_menuitem').submit(function(e){
                         }
                       },
              failure: function(errMsg) {
+                 console.log("TEST"); 
                          alert(errMsg);
                       },
-
             });
-   
 })
 
-//reset modal
+//delete menu item
+$('body').on("click", "a.menuitem_deletebtn",  function(e){
+    e.preventDefault();
+    var url = $(this).attr('href');
+    
+   $.ajax({
+             type: 'get',
+             url: url,
+             success: function(data){
+                 var menuitem = "#menuitem_"+data.id;
+                 $(menuitem).remove();
+             },
+             failure: function(error){
+                 alert(error);
+             }
+         });
+});
+
+//delete menu item
+$('body').on("click", "a.menuitem_editbtn",  function(e){
+    e.preventDefault();
+    var url = $(this).attr('href');
+    
+   $.ajax({
+             type: 'get',
+             url: url,
+             success: function(data){
+                 var menuitem = "#menuitem_"+data.id;
+                 $(menuitem).remove();
+             },
+             failure: function(error){
+                 alert(error);
+             }
+         });
+});
+
+
+//resetting modals
 $('.modal').on('hidden.bs.modal', function(){
     $(this).find('form')[0].reset();
     $('#add_errormessage').hide();
@@ -302,9 +328,12 @@ $('.modal').on('hidden.bs.modal', function(){
      $('#add_menuitem input, #add_menuitem select, #add_menuitem textarea').each(function(){
         $(this).removeClass('error');
         $(this).removeClass('success');
-        
     });
 });
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 //Menu Category Management
 //Adding new menu category
@@ -324,21 +353,19 @@ $('#add_menucategory').submit(function(e){
              data: data,
              success: function(data){
                         if(data.success){             
-                                var form = '<div class="menu_category row" id="menu_category_'+data.category.category_id+'">\n\
-                                                <form action="../process_data/delete_menu_category.php" method="post" id="form_'+data.category.category_id+'" class="menucategory_form">\n\
-                                                      <div class="col-xs-9"><h3 class="blue">'+data.category.category_name+' </h3></div>\n\ \n\
-                                                       <input type="hidden" name="id" value="'+data.category.category_id+'">\n\
-                                                      <div class="col-xs-3"> <button class="btn btn-primary" type="submit"><span class="fa fa-trash-o"></span></button></div> \n\
-                                                </form>\n\
-                                               </div>';
-                                $('#menu_categories').append(form); 
+                                                    
+                                var listitem = '<li data-id="'+data.category.category_id+'" class="list-group-item" id="menucategory_'+data.category.category_id+'">\n\
+                                                    <a href="../process_data/delete_menu_category.php?id='+data.category.category_id+'"><span class="fa fa-trash-o pull-right animated pulse"></span></a>\n\
+                                                    <p class="list-group-item-text"><span class="fa fa-arrows"></span>   '+capitalize(data.category.category_name)+'</p> \n\
+                                                </li>';
+                                $('#menu_categories').append(listitem); 
                                 $('#menu_category_filter').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
                                 $('#menuitem_category').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
                                 $('#menucategory_name').val("");
                                 
                               
-                                
-                                console.log(option);
+                                $('#menu_categories').sortable();
+                            
                                 console.log($('#menu_category_filter'));
                                 
                                
@@ -355,7 +382,16 @@ $('#add_menucategory').submit(function(e){
             });
 })
 
+$('#menu_categories').sortable();
+$('#menu_categories').sortable().bind('sortupdate', function() 
+{
+    var dataIDList = $('#menu_categories li').map(function(){ 
+        return $(this).data("id");
+    }).get().join(",");
 
+   console.log(dataIDList);
+});
+/*
 $('body').on("submit", ".menucategory_form",  function(e){
     e.preventDefault();
     
@@ -395,6 +431,46 @@ $('body').on("submit", ".menucategory_form",  function(e){
     }
 });
 
+*/
+
+
+$('body').on("click", "#menu_categories a",  function(e){
+    e.preventDefault();
+    
+    if (confirm('If you delete a category, all menu items associated with that category will be deleted. Are you sure you want to delete this category?')) {
+    // Save it!
+    
+    var $this = $(this);
+    var url = $this.attr('href');
+    var type = 'get';
+    
+    $.ajax({
+             type: type,
+             url: url,
+             success: function(data){
+                        if(data.success){             
+                                $this.parent().remove();    
+                                
+                                console.log( $('#menu_category_filter option[value="'+data.id+'"]'));
+                                console.log('#menu_category_filter');
+                                $('#menu_category_filter option[value="'+data.id+'"]').remove();
+                                $('#menuitem_category option[value="'+data.id+'"]').remove();
+                        }
+                        else
+                        {
+                            alert(data.message);
+                        }
+                      },
+             failure: function(errMsg) {
+                         alert(errMsg);
+                      },
+            }); 
+            
+    } else {
+        // Do nothing!
+    }
+});
+
 /*
 $('#addmenuitem_button').on('click', function(e){
     e.preventDefault();
@@ -406,6 +482,54 @@ $('#addmenuitem_button').on('click', function(e){
 */
 
 
+$('#get_flight_data').click(function(e){
+    
+        $.ajax({
+             type: 'post',
+             url: 'http://localhost/GitHub/sliemapitch/process_data/xmlparser.php',
+             success: function(data){
+                 //console.log(data);
+                 $('#flight_data').html("");
+                var x = 1;
+                var flight ="";
+                
+                            $.each(data.CWPReportRoster, function(index, value ) {
+                                 console.log(value);
+                                var dutyStart, dutyEnd, flyingStart, flyingEnd;
+                                
+                                if(typeof value.CheckInTime === 'string' && typeof value.CheckoutTime !== 'string'){
+                                     flight = '<a href="#" class="list-group-item">'+x+'. '+value.RMDateDay+': '+value.ActivityInfo+' '+value.CheckInTime+' '+value.Origin+' - '+value.Destination;
+                                     x++;
+                                     dutyStart = new Date(value.ActivityDate);
+                                      
+                                      
+                                   // $('#flight_data').append(flight);
+                                     console.log(dutyStart);
+                                 }
+                                 
+                                 if(typeof value.CheckInTime !== 'string' && typeof value.CheckoutTime === 'string'){
+                                    
+                                      flight += '  -  '+value.RMDateDay+': '+value.ActivityInfo+' '+value.CheckoutTime+' '+value.Origin+' - '+value.Destination+' Total Duty Period: </a>';
+                                      dutyEnd = dutyStart = new Date(value.ActivityDate);
+                                    console.log(dutyEnd);
+                                   $('#flight_data').append(flight);
+                                   
+                                     console.log(value.CheckInTime);
+                                 }
+                                 
+                                  
+                                 
+                                 
+                               
+                                
+                              });
+                      },
+             failure: function(errMsg) {
+                         alert(errMsg);
+                      },
+            }); 
+    
+})
 
 
 
