@@ -2419,7 +2419,10 @@ select{
 .modal-footer .btn + .btn {
     margin-left:0;
 }
-
+.modal-header h4{
+    font-family: 'open sans';
+    text-transform: uppercase;
+}
 input.success, textarea.success, select.success{
     //border-color: green !important;
     border: 3px dotted green !important;
@@ -2450,3 +2453,23 @@ input.error, textarea.error, select.error{
     text-transform: uppercase;
 }
 
+.list-group-item:first-child {
+   border-top-right-radius: 1px; 
+   border-top-left-radius: 1px; 
+}
+.list-group-item:last-child {
+  
+  border-bottom-right-radius: 1px;
+  border-bottom-left-radius: 1px;
+}
+
+.btn-primary:active, .btn-primary:focus{
+   background-color: #3e454c;
+   border-color: #3e454c;  
+} 
+
+.pagination > .active > a:hover,
+.pagination > .active > span:hover{
+   background-color: #e74c3c;
+   border-color: #e74c3c;  
+}

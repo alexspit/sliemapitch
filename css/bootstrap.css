@@ -4007,6 +4007,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   background-color: #ffffff;
   border: 1px solid #dddddd;
   margin-left: -1px;
+  color:#3e454c;;
 }
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
@@ -4033,8 +4034,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #3e454c;
+  border-color: #3e454c;
   cursor: default;
 }
 .pagination > .disabled > span,

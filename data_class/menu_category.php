@@ -141,6 +141,30 @@ class menu_category {
         echo $string;
   
    }
+   
+       
+   public function getDropDownEditItem(){
+        $link = $this->db->openConnection();
+        
+        $sql = "SELECT category_id, category_name FROM `menu_category` ORDER BY `category_order`";
+        $string = '<select id="edit_menuitem_category" name="menuitem_category" style="margin-bottom: 20px;" required>
+                               <option disabled="" selected="" style="display:none;">Menu Category:</option>';
+        
+      
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+        
+        while($row = mysqli_fetch_array($result))
+        {
+            
+            $string .= '<option value="'.$row['category_id'].'">'.strtoupper($row['category_name']).'</option>';  
+        }
+         
+        $string .= '</select>';
+         $this->db->closeConnection();
+        
+        echo $string;
+  
+   }
     
      public function getList(){
         $link = $this->db->openConnection();
@@ -226,6 +250,23 @@ class menu_category {
        
    }
    
+   public function hasItems(){
+        $link = $this->db->openConnection();
+        
+        $sql = "SELECT COUNT(item_id) AS total FROM menu_item WHERE category_id=$this->category_id";
+         
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+                     
+        while($row = mysqli_fetch_array($result))
+        {
+            $total = $row['total'];           
+        }
+        $this->db->closeConnection();
+        if($total > 0){
+            return true;
+        }else{ return false; }
+        
+   }
   
     
 }

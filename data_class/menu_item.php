@@ -7,6 +7,8 @@
  */
 include_once 'db_connection.php';
 include_once 'menu_category.php';
+include_once 'Paginator.php';
+
 
 /**
  * Description of product
@@ -106,7 +108,7 @@ class menu_item {
         return $success;
     }
     
-      public function updateMenuItem($id){
+      public function updateMenuItem(){
  
         date_default_timezone_set('Europe/Berlin');
         $currentDateTime = date('Y-m-d H:i:s', time());
@@ -114,7 +116,7 @@ class menu_item {
         $link = $this->db->openConnection();
          
         $sql = 'UPDATE menu_item SET category_id='.$this->category->category_id.', name="'.$this->name.'", description="'.$this->description.'", price='.$this->price.', last_edited="'.$currentDateTime.'", vegetarian='.$this->vegetarian.', spicy='.$this->spicy.', gluten_free='.$this->gluten_free.', featured='.$this->featured.''
-                . ' WHERE item_id='.$id;
+                . ' WHERE item_id='.$this->item_id;
              
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
             
@@ -127,18 +129,29 @@ class menu_item {
     
    
   
-    public function getMenuItems(){
+    public function getMenuItems($limit = 10, $page = 1, $id = null){
+        
+        
                             
         $link = $this->db->openConnection();
-        
         $sql = "SELECT c.category_id, c.category_name, m.name, m.price, m.item_id, m.date_added
                 FROM menu_item m
-                INNER JOIN menu_category c ON ( c.category_id = m.category_id ) ";
+                INNER JOIN menu_category c ON ( c.category_id = m.category_id )";
+        
+        if(isset($id) || $id != 0)
+        {
+            
+            $sql .= " WHERE m.category_id=$id";
+        }
+        
+        $sql .= " ORDER BY m.date_added LIMIT ".($page - 1) * $limit.", ".$page * $limit;
+        
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
-                     
+                   
         $tmpstr = '';
         while($row = mysqli_fetch_array($result))
         {
+           
            $this->category = new menu_category($row['category_id']);
            
            $this->name = $row['name'];
@@ -161,7 +174,7 @@ class menu_item {
                                         <p class=" menu_item-margin">'.ucfirst($this->category->category_name).'</p> 
                                     </div>
                                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-6">
-                                        <a href="../process_data/edit_menu_item.php?id='.$this->item_id.'" class="menuitem_editbtn btn btn-primary btn1">                                        
+                                        <a data-id="'.$this->item_id.'" href="#" data-toggle="modal" data-target="#editmenumodal" class="menuitem_editbtn btn btn-primary btn1">                                        
                                             <span class="glyphicon glyphicon-edit"></span> 
                                         </a>  
                                     </div>
@@ -178,16 +191,31 @@ class menu_item {
                                          <p class="menu_item-details">Added on '.$this->date_added.'</p> 
                                     </div>          
                      </div>
-                 </div>';
-                                
-                             
+                 </div>';      
+                
     }
     
     
-    
+     $sql2 = "SELECT COUNT(*) AS total FROM menu_item ";
+        
+     if(isset($id) || $id != 0)
+     {
+            $sql2 .= " WHERE category_id=$id";
+     }
+     
+     $result = mysqli_query($link, $sql2) or die(mysqli_error($link));    
+     $total = 0;
+      while($row = mysqli_fetch_array($result))
+        {
+           $total = $row['total'];
+        }
+   
     $this->db->closeConnection();
-    
-    echo $tmpstr;
+                 
+    $p = new Paginator($total, $page, $limit);
+    $tmpstr .= $p->make();
+            
+    return $tmpstr;
     }
     
     }

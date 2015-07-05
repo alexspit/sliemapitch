@@ -225,6 +225,8 @@ $('#options').change(function(){
 //Adding new menu item
 var add_errormessage = $('#add_errormessage');
 add_errormessage.hide();
+var edit_errormessage = $('#edit_errormessage');
+edit_errormessage.hide();
 
 $('#add_menuitem').submit(function(e){
     add_errormessage.removeClass('alert-danger');
@@ -249,6 +251,8 @@ $('#add_menuitem').submit(function(e){
                         console.log(data);
                         if(data.success){                           
                              $('#showmenuitems').append(data.menuitem_string); 
+                             $('#menu_category_filter').val(data.menuitem.category.category_id);
+                             $('#menu_category_filter').trigger('change');
                              $('#addmenumodal').modal('hide');
                         }
                         else{
@@ -301,23 +305,69 @@ $('body').on("click", "a.menuitem_deletebtn",  function(e){
          });
 });
 
-//delete menu item
+//load menu item modal for editing
 $('body').on("click", "a.menuitem_editbtn",  function(e){
-    e.preventDefault();
-    var url = $(this).attr('href');
     
-   $.ajax({
+    var id = $(this).data('id');
+        
+    $.ajax({
              type: 'get',
-             url: url,
+             url: '../process_data/load_menu_item.php',
+             data: {id: id},
              success: function(data){
-                 var menuitem = "#menuitem_"+data.id;
-                 $(menuitem).remove();
+                 console.log(data);
+                 $('#edit_menuitem_name').val(data.name);
+                 $('#edit_menuitem_category').val(data.category.category_id);
+                 $('#edit_menuitem_price').val(data.price);
+                 $('#edit_menuitem_description').val(data.description);
+                 if(data.vegetarian == "1"){
+                      $('#edit_vegetarian').prop('checked', true);
+                 }
+                 if(data.gluten_free == "1"){
+                      $('#edit_gluten_free').prop('checked', true);
+                 }
+                 if(data.spicy == "1"){
+                      $('#edit_spicy').prop('checked', true);
+                 }
+                 if(data.featured == "1"){
+                      $('#edit_featured').prop('checked', true);
+                 }
+                
+                 $('#edit_menuitem').append('<input type="hidden" id="edit_menuitem_id" name="menuitem_id" value="'+data.item_id+'">');
              },
              failure: function(error){
                  alert(error);
              }
          });
 });
+
+//edit menu item
+$('#edit_menuitem').submit(function(e){
+   
+    e.preventDefault();
+    var $this = $(this);
+    var data = $this.serialize();
+    var url = $this[0].action;
+    var type = $this[0].method;
+    
+        $.ajax({
+             type: type,
+             url: url,
+             data: data,
+             success: function(data){
+                        console.log(data);
+                        $('#showmenuitems').html(data.items);
+                        $('#editmenumodal').modal('hide');
+                      },
+             failure: function(errMsg) {
+                 console.log("TEST"); 
+                         alert(errMsg);
+                      },
+            });
+    
+  
+})
+
 
 
 //resetting modals
@@ -362,6 +412,8 @@ $('#add_menucategory').submit(function(e){
                                 $('#menu_categories').append(listitem); 
                                 $('#menu_category_filter').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
                                 $('#menuitem_category').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
+                                $('#edit_menuitem_category').append($('<option>', {value:data.category.category_id, text:data.category.category_name.toUpperCase()}));
+                                
                                 $('#menucategory_name').val("");
                                 
                               
@@ -470,6 +522,11 @@ $('body').on("click", "#menu_categories a",  function(e){
                                 console.log('#menu_category_filter');
                                 $('#menu_category_filter option[value="'+data.id+'"]').remove();
                                 $('#menuitem_category option[value="'+data.id+'"]').remove();
+                                $('#edit_menuitem_category option[value="'+data.id+'"]').remove();
+                                
+                                $('#menu_category_filter').val(0);
+                                $('#menu_category_filter').trigger('change');
+                              
                         }
                         else
                         {
@@ -495,6 +552,24 @@ $('#addmenuitem_button').on('click', function(e){
 });
 
 */
+
+
+
+$('#menu_category_filter').on('change', function(){
+   var data = {id:$(this).val()};
+    $.ajax({
+             type: 'get',
+             url: '../process_data/load_menu_items.php',
+             data: data,
+             success: function(data){
+                 console.log(data.items);
+                 $('#showmenuitems').html(data.items);
+             },
+             failure: function(error){
+                 alert('Error: '+error);
+             }
+         });
+});
 
 
 $('#get_flight_data').click(function(e){
