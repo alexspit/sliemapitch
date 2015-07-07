@@ -46,9 +46,15 @@ if (!$.cookie('firstVisit'))
 $('.animated').autosize();
 
 
-if ($(location).attr('pathname') == "/sliemapitch.com/contact.php" )
+if ($(location).attr('pathname') == "/GitHub/sliemapitch/contact.php" )
 {
         $("#scrollto_map").on("click", function(e){
+            e.preventDefault();
+            $('#map').animatescroll({scrollSpeed:500,easing:'easeOutQuart'});
+
+        });
+        
+        $("body").on("#scrollto_map", "click", function(e){
             e.preventDefault();
             $('#map').animatescroll({scrollSpeed:500,easing:'easeOutQuart'});
 
@@ -66,6 +72,7 @@ if ($(location).attr('pathname') == "/sliemapitch.com/contact.php" )
 
         });
 }
+
 
 //$('#booking_confirmation_form input[type="checkbox"]').change(function() {
 //{
@@ -556,20 +563,124 @@ $('#addmenuitem_button').on('click', function(e){
 
 
 $('#menu_category_filter').on('change', function(){
-   var data = {id:$(this).val()};
+    
+   var limit = $('#pagination_limit').val();
+   var data = {id:$(this).val(), limit:limit};
     $.ajax({
              type: 'get',
              url: '../process_data/load_menu_items.php',
              data: data,
              success: function(data){
                  console.log(data.items);
-                 $('#showmenuitems').html(data.items);
+                 //$('#showmenuitems').html(data.items);
+                 $("#showmenuitems").fadeOut(400, function() {
+                    //$("#showmenuitems").empty().hide().append(data).fadeIn(400);
+                    $('#showmenuitems').html(data.items).fadeIn(400);
+                 });
+                 $('#menu_management_title').animatescroll({scrollSpeed:1000,easing:'easeOutQuart'});
              },
              failure: function(error){
                  alert('Error: '+error);
              }
          });
 });
+
+
+
+
+
+//////PAGINATION/////////////
+
+
+//Making sure link tag is not clickable when disabled
+$('body').on("click", ".pagination li a",  function(e){
+    e.preventDefault();
+    
+    if(!$(this).parent().hasClass('disabled')){
+        var $this = $(this);
+        var page = $this.data('page');
+        var limit = $('#pagination_limit').val();
+        var category = $('#menu_category_filter').val();
+        
+        if (limit === null){
+            limit = 10;
+        }
+        
+        if (category === null){ 
+            category = 0;
+        }
+        
+        var data = {page:page, limit:parseInt(limit), category:parseInt(category)};
+        console.log(data);
+        $.ajax({
+             type: 'get',
+             url: '../process_data/paginate_menu_items.php',
+             data: data,
+             success: function(data){
+                 console.log(data.items);
+                 //$('#showmenuitems').html(data.items);
+                 $("#showmenuitems").fadeOut(400, function() {
+                    //$("#showmenuitems").empty().hide().append(data).fadeIn(400);
+                    $('#showmenuitems').html(data.items).fadeIn(400);
+                 });
+                 
+                 $('#menu_management_title').animatescroll({scrollSpeed:1000,easing:'easeOutQuart'});
+             },
+             failure: function(error){
+                 alert('Error: '+error);
+             }
+         });
+        
+    }
+    
+});
+
+
+$('#pagination_limit').on('change', function(){
+    
+   var limit = $(this).val();
+   
+   var page = $('.pagination li.active a').data('page');
+   var category = $('#menu_category_filter').val();
+        
+        if (limit === null || typeof limit === 'undefined') {
+    // the variable is defined
+            limit = 10;
+        }
+        
+        if (category === null || typeof category === 'undefined'){ 
+            category = 0;
+        }
+        
+        if (page === null || typeof page === 'undefined'){ 
+            page = 1;
+        }
+        
+        var data = {page:page, limit:parseInt(limit), category:parseInt(category)};
+        
+        
+        console.log(data);
+        $.ajax({
+             type: 'get',
+             url: '../process_data/paginate_menu_items.php',
+             data: data,
+             success: function(data){
+                 console.log(data.items);
+                 $("#showmenuitems").fadeOut(400, function() {
+                    //$("#showmenuitems").empty().hide().append(data).fadeIn(400);
+                    $('#showmenuitems').html(data.items).fadeIn(400);
+                 });
+
+                // $('#showmenuitems').html(data.items);
+                 
+                 $('#menu_management_title').animatescroll({scrollSpeed:1000,easing:'easeOutQuart'});
+             },
+             failure: function(error){
+                 alert('Error: '+error);
+             }
+         });
+});
+
 
 
 $('#get_flight_data').click(function(e){

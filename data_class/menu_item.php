@@ -138,20 +138,21 @@ class menu_item {
                 FROM menu_item m
                 INNER JOIN menu_category c ON ( c.category_id = m.category_id )";
         
-        if(isset($id) || $id != 0)
+        if(isset($id) && $id != 0 && $id != "0" && $id != null)
         {
             
             $sql .= " WHERE m.category_id=$id";
         }
         
-        $sql .= " ORDER BY m.date_added LIMIT ".($page - 1) * $limit.", ".$page * $limit;
+        $sql .= " ORDER BY m.date_added LIMIT ".($page - 1) * $limit.", ".$limit;
         
         $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
                    
         $tmpstr = '';
+        $count = 0;
         while($row = mysqli_fetch_array($result))
         {
-           
+           $count++;
            $this->category = new menu_category($row['category_id']);
            
            $this->name = $row['name'];
@@ -198,7 +199,7 @@ class menu_item {
     
      $sql2 = "SELECT COUNT(*) AS total FROM menu_item ";
         
-     if(isset($id) || $id != 0)
+     if(isset($id) && $id != 0 && $id != "0" && $id != null)
      {
             $sql2 .= " WHERE category_id=$id";
      }
@@ -213,7 +214,95 @@ class menu_item {
     $this->db->closeConnection();
                  
     $p = new Paginator($total, $page, $limit);
-    $tmpstr .= $p->make();
+    //$tmpstr .= $p->make();   
+    
+    $currNumber = ($total<$limit ? $total : $count);
+    $tmpstr .= ' <div class="row">
+                        <div class="col-sm-4 hidden-xs">
+                            Showing <b>'.$currNumber.'</b> of <b>'.$total.'</b> item/s
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-7 ">';
+    $tmpstr .= $p->make();                         
+    $tmpstr .= '        </div>'
+            . '  </div>';
+                       /*  <div class="col-sm-2 hidden-xs">
+                           <select name="limit" id="pagination_limit">
+                               <option disabled="" selected="" style="display:none;">Items:</option>
+                               <option value="5">5</option>
+                               <option value="10">10</option>
+                               <option value="25">25</option>
+                               <option value="50">50</option>
+                            </select>
+                        </div>
+                       
+                    </div>';*/
+    
+    //$tmpstr .= 
+            
+    return $tmpstr;
+    }
+    
+    public function getMenuItemsFrontEnd($id=null){
+        
+        
+                            
+        $link = $this->db->openConnection();
+      
+        $sql = "SELECT DISTINCT(m.category_id) FROM menu_item m INNER JOIN menu_category c ON (m.category_id = c.category_id) ORDER BY c.category_order";
+        
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
+                   
+        $tmpstr = '';
+        
+        while($row = mysqli_fetch_array($result))
+        {
+              
+           $this->category = new menu_category($row['category_id']);
+           
+           $tmpstr .= "<h2>".$this->category->category_name."</h2>";  
+          
+           $cat =  $this->category->category_id;
+           $sql2 = "SELECT c.category_id, c.category_name, m.name, m.price, m.description, m.item_id, m.vegetarian, m.gluten_free, m.spicy, m.featured
+                    FROM menu_item m
+                    INNER JOIN menu_category c ON ( c.category_id = m.category_id )
+                    WHERE m.category_id = $cat
+                    ORDER BY m.featured DESC ";
+        
+           $result2 = mysqli_query($link, $sql2) or die(mysqli_error($link));   
+           
+           while($row = mysqli_fetch_array($result2)){
+              
+           
+               $this->name = $row['name'];
+               $this->description = $row['description'];
+               $this->price = $row['price'];
+               $this->vegetarian = ($row['vegetarian'] > 0 ? true : false);
+               $this->featured = ($row['featured'] > 0 ? true : false);
+               $this->gluten_free = ($row['gluten_free'] > 0 ? true : false);
+               $this->spicy = ($row['spicy'] > 0 ? true : false);
+               $catName = $this->category->category_name;
+               $tmpstr .=" <div class='$catName row'>
+                  <div class='item col-md-9'>
+                    <h3 class='name'>$this->name </h3>
+                    <p class='description'>$this->description </p>
+                  </div>
+                  <div class='price col-md-3'>
+                    <p class='price'>$this->price €</p>
+                  </div>
+                </div>";
+               
+               
+           }
+            
+            
+                
+    }
+    
+    
+   
+    $this->db->closeConnection();
+                 
+ 
             
     return $tmpstr;
     }

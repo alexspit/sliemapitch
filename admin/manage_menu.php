@@ -47,7 +47,7 @@ include 'modals/manage_menucategory_modal.php';
                 
                 <div class="row">
                     <div class="col-lg-10 col-sm-8 col-xs-12">
-                        <h2 id="reservations">Menu Management</h2>
+                        <h2 id="menu_management_title">Menu Management</h2>
                     </div>
                     <div class="col-lg-2 col-sm-4 " >                        
                         <?php $categories->getDropDown(); ?>
@@ -57,27 +57,35 @@ include 'modals/manage_menucategory_modal.php';
                  
                 <div id="showmenuitems"> 
                     <?php 
-                    echo $menu->getMenuItems(5,1);
+                    echo $menu->getMenuItems();
                    
-                    ?>
+                    ?>     
+                    
                 </div>
-                
+            
                                           
                
                 <div style="height:20px; width:100%;"></div>
                 
-                <div class="row">
-                    
-                    <div class="col-lg-6" id="form">
-                        <form id="menu_item-form" class="menu_item-form" action="../process_data/add_menu_item.php" method="post">
-                         
- 
+                
+                <div class="col-sm-2 hidden-xs pull-right" style="margin-bottom: 10px">
+                            <select name="limit" id="pagination_limit">
+                               <option disabled="" selected="" style="display:none;">Items:</option>
+                               <option value="5">5</option>
+                               <option value="10">10</option>
+                               <option value="25">25</option>
+                               <option value="50">50</option>
+                            </select>
+                </div>
+                
+                <div class="col-lg-6">
+                 
                               <button class="btn btn-primary "  style="float:none;"id="managemenucategory_button" type="button" value="Manage Categories" data-toggle="modal" data-target="#menucategorymodal">Manage Categories</button>
                               
                               <button class="btn btn-primary" style="float:none;" id="addmenuitem_button" type="submit" value="Add Menu Item" data-toggle="modal" data-target="#addmenumodal">Add Menu Item</button>
                      
-                     </form>
-                    </div>
+                     
+                </div>
                     <div class="col-lg-6">
                          
                        
