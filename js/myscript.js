@@ -45,6 +45,7 @@ if (!$.cookie('firstVisit'))
 
 $('.animated').autosize();
 
+$("#tostick").sticky({ topSpacing: -75 });
 
 if ($(location).attr('pathname') == "/GitHub/sliemapitch/contact.php" )
 {

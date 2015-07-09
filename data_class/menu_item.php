@@ -281,10 +281,11 @@ class menu_item {
                $this->gluten_free = ($row['gluten_free'] > 0 ? true : false);
                $this->spicy = ($row['spicy'] > 0 ? true : false);
                $catName = $this->category->category_name;
-               $tmpstr .=" <div class='$catName row'>
+               $tmpstr .=" <div class='$catName category row'>
                   <div class='item col-md-9'>
                     <h3 class='name'>$this->name </h3>
                     <p class='description'>$this->description </p>
+                    <span class='halflings halflings-info-sign'></span>
                   </div>
                   <div class='price col-md-3'>
                     <p class='price'>$this->price €</p>

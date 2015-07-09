@@ -108,7 +108,12 @@ $reservation = new reservation();
             <nav class="navbar navbar-default navbar-static-top tm_navbar" role="navigation">
                 <ul class="nav sf-menu">
                   <li><a href="../index.php">Main Site<span></span></a></li>
-                  <li<?php if($_SESSION["current_page"] == "menu") echo ' class="active"'; ?>><a href="manage_menu.php">Menu<span></span></a></li>
+                  <li<?php if($_SESSION["current_page"] == "menu") echo ' class="active"'; ?>><a href="manage_menu.php">Menu<span><em class="indicator1"></em></span></a>
+                      <ul>
+                        <li><a id="scrollto_additem" href="manage_menu.php#showmenuitems" data-toggle="modal" data-target="#addmenumodal">Add Menu Item</a></li>
+                        <li><a id="scrollto_managecategory" href="manage_menu.php#showmenuitems" data-toggle="modal" data-target="#menucategorymodal">Manage Categories</a></li>
+                      </ul>
+                  </li>
                   <li<?php if($_SESSION["current_page"] == "review") echo ' class="active"'; ?>><a href="logged.php">Reservations <p class="badge"><?php if(isset($_SESSION["loggedin"])){ if($reservation->getPendingReservations()>0){echo $reservation->getPendingReservations();}}?></p><span></span></a>
                   </li>               
                   <li class="last<?php if($_SESSION["current_page"] == "login") echo ' active'; ?>">

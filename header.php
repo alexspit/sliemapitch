@@ -50,7 +50,7 @@ if (session_status() == PHP_SESSION_NONE)
     <script src="js/jquery.cookie.js"></script>
     <script src="js/jquery.autosize.min.js"></script>
     <script src="js/animatescroll.min.js"></script>
-      
+    <script src="js/jquery.sticky.js"></script>  
     <script src="js/myscript.js"></script>
     
     <script src='js/camera.js'></script>
@@ -139,26 +139,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
                 <ul class="nav sf-menu">
                   <li<?php if($_SESSION["current_page"] == "index") echo ' class="active"'; ?>><a href="index.php">Home<span></span></a></li>
                   <li<?php if($_SESSION["current_page"] == "aboutus") echo ' class="active"'; ?>><a href="aboutus.php">About us<span></span></a></li>
-                  <li<?php if($_SESSION["current_page"] == "menu") echo ' class="active"'; ?>><a href="menu.php">Menu<span><em class="indicator1"></em></span></a>
-                    <ul>
-                      <li><a href="#">Aperitivi</a></li>
-                      <li><a href="#">Antipasti</a></li>
-                      <li><a href="#">Primi<em class="indicator2"></em></a>
-                        <ul>
-                           <li><img src="img/arrowsubmenu1.png" alt=""><a href="#">Insalata</a></li>
-                           <li><a class="last" href="#">Pasta</a></li>                    
-                        </ul>
-                      </li>
-                      <li><a class="last" href="#">Secondi<em class="indicator2"></em></a>
-                          <ul>
-                           <li><img src="img/arrowsubmenu1.png" alt=""><a href="#">Pesce</a></li>
-                           <li><a href="#">Carne</a></li>                    
-                          </ul>
-                      </li>
-                      <li><a href="#">Dolci</a></li>
-                      <li><a class="last" href="#">Vini</a></li>
-                    </ul>
-                  </li>
+                  <li<?php if($_SESSION["current_page"] == "menu") echo ' class="active"'; ?>><a href="menu.php">Menu<span><em class="indicator1"></em></span></a></li>
                   <li<?php if($_SESSION["current_page"] == "contact") echo ' class="active"'; ?>><a href="contact.php">Contact Us<span><em class="indicator1"></em></span></a>
                       <ul>
                         <li><a id="scrollto_map" href="contact.php#map">Where to find us</a></li>

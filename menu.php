@@ -11,19 +11,88 @@ Suspendisse porttitor eleifend ornare. Nam enim dolor, tempor a tortor quis, sod
 Sed malesuada vitae neque eu viverra. Praesent turpis felis, vehicula a ipsum eu, lacinia tincidunt ante.";
 $keywords = "Menu, Sliema, Pitch, Food, Restaurant, Lounge, Italian";
 include 'header.php';
+include 'data_class/menu_item.php';
+
+$menu = new menu_item();
+
 ?>
 
 <!--==============================content=================================-->
 <div id="content">
     <!--==============================row_7=================================-->   
-    <div class="row_7"> 
-        <div class="container">
-        <h2>our menu</h2>
-            <div class="row">
-                <!-------------------->
-                <ul class="ch-grid">
+    
+     
+             
+        <ul class="list9 visible-lg" id="tostick">
+                    <li class="col-lg-1  collist6">
+                        <figure><a href="img/page3_bigimg1.jpg" class="thumb"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                        <h3>Featured</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg2.jpg" class="thumb"><img src="img/page3_img2.jpg" alt=""><span><em></em></span></a></figure>
+                         <h3>Starters</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                         <h3>Apitizers</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>
+                        <h3>Pasta</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                         <h3>Pizza</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>       
+                         <h3>Salads</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg1.jpg" class="thumb"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                        <h3>Meat</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg2.jpg" class="thumb"><img src="img/page3_img2.jpg" alt=""><span><em></em></span></a></figure>
+                         <h3>Fish</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                         <h3>Desserts</h3>
+                    </li>
+                    <li class="col-lg-1  collist6">
+                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>   
+                        <h3>Platters</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                         <h3>Breads</h3>
+                    </li>
+                    <li class="col-lg-1 collist6">
+                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>       
+                         <h3>Breakfast</h3>
+                    </li>
+        </ul>
+     
+        <div class="row_7"> 
+              <div class="container">
+        <div id="menuitems">
+            
+                
+
+                <?php echo $menu->getMenuItemsFrontEnd();
+
+?>
+            
+        </div>
+            
+        
+           <!--<div class="row">
+                
+               
+         <ul id="tostick" class="ch-grid">
 					<li>
-						<a href="#">
+						<a href="#pizza">
 						<div class="ch-item ch-img-1">
 							<div class="ch-info">
 								<h3>Pizza</h3>
@@ -35,15 +104,16 @@ include 'header.php';
 					<li>
 
 						<div class="ch-item ch-img-2">
-							<a href="http://www.google.com"><div class="ch-info">
-													<h3>Meat</h3>
-								
-							</div></a>
+							<a href="#Meat">
+                                                            <div class="ch-info">
+                                                                <h3>Meat</h3>
+                                                            </div>
+                                                        </a>
 						</div>
 						
 					</li>
 					<li>
-					<a href="#">
+					<a href="#panini">
 						<div class="ch-item ch-img-3">
 							<div class="ch-info">
 								<h3>Panini</h3>
@@ -53,7 +123,7 @@ include 'header.php';
 						</a>
 					</li>
 				</ul>
-                <!-------------------->
+         
                 <ul class="list9">
                     <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 collist6">
                         <figure><a href="img/page3_bigimg1.jpg" class="thumb"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
@@ -116,7 +186,10 @@ include 'header.php';
                         <p><a href="#">&euro; 9.99</a></p>
                     </li>
                 </ul>
-            </div>
+                
+                
+            </div>-->
+        
         </div>
     </div>  
 
