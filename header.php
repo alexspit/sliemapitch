@@ -139,7 +139,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
                 <ul class="nav sf-menu">
                   <li<?php if($_SESSION["current_page"] == "index") echo ' class="active"'; ?>><a href="index.php">Home<span></span></a></li>
                   <li<?php if($_SESSION["current_page"] == "aboutus") echo ' class="active"'; ?>><a href="aboutus.php">About us<span></span></a></li>
-                  <li<?php if($_SESSION["current_page"] == "menu") echo ' class="active"'; ?>><a href="menu.php">Menu<span><em class="indicator1"></em></span></a></li>
+                  <li<?php if($_SESSION["current_page"] == "menu") echo ' class="active"'; ?>><a href="menu.php">Menu<span></span></a></li>
                   <li<?php if($_SESSION["current_page"] == "contact") echo ' class="active"'; ?>><a href="contact.php">Contact Us<span><em class="indicator1"></em></span></a>
                       <ul>
                         <li><a id="scrollto_map" href="contact.php#map">Where to find us</a></li>
@@ -148,21 +148,12 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
                       </ul>
                   </li>
                   <li class="last<?php if($_SESSION["current_page"] == "reservations") echo ' active'; ?>">
-                      
-                          <?php 
-                          //if(isset($_SESSION["loggedin"]))
-                          // {
-                          ?>
-                      <a href='reservations.php'>Reservations<span><em class="indicator1"></em></span></a>
+                     <a href='reservations.php'>Reservations<span><em class="indicator1"></em></span></a>
                                         <ul>
                                             <li><a href="reservations.php#booking">Book a table</a></li>
                                             <li><a class="last" href="reservations.php#">Plan an event</a></li>
                                         </ul>
-                            <?php    
-                            //}
-                            // else
-                            //{ echo "<a href='login.php#login'>Login</a>"; }
-                            ?>
+                            
                           <span></span>
                      </li>
                 </ul>

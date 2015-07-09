@@ -250,16 +250,22 @@ class menu_item {
       
         $sql = "SELECT DISTINCT(m.category_id) FROM menu_item m INNER JOIN menu_category c ON (m.category_id = c.category_id) ORDER BY c.category_order";
         
-        $result = mysqli_query($link, $sql) or die(mysqli_error($link));    
-                   
-        $tmpstr = '';
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
+        
+        $menuCategoriesStr = '<ul class="list9 visible-lg" id="tostick">';           
+        $menuitemsStr = '';
         
         while($row = mysqli_fetch_array($result))
         {
               
            $this->category = new menu_category($row['category_id']);
            
-           $tmpstr .= "<h2>".$this->category->category_name."</h2>";  
+           $menuCategoriesStr .= '<li class="col-lg-1 collist6">
+                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                                    <h3>'.$this->category->category_name.'</h3>
+                                  </li>';
+           
+           $menuitemsStr .= "<h2 id='".$this->category->category_name."' >".$this->category->category_name."</h2>";  
           
            $cat =  $this->category->category_id;
            $sql2 = "SELECT c.category_id, c.category_name, m.name, m.price, m.description, m.item_id, m.vegetarian, m.gluten_free, m.spicy, m.featured
@@ -281,7 +287,7 @@ class menu_item {
                $this->gluten_free = ($row['gluten_free'] > 0 ? true : false);
                $this->spicy = ($row['spicy'] > 0 ? true : false);
                $catName = $this->category->category_name;
-               $tmpstr .=" <div class='$catName category row'>
+               $menuitemsStr .=" <div class='$catName category row'>
                   <div class='item col-md-9'>
                     <h3 class='name'>$this->name </h3>
                     <p class='description'>$this->description </p>
@@ -293,19 +299,60 @@ class menu_item {
                 </div>";
                
                
-           }
-            
-            
-                
+           }        
     }
     
-    
+     $menuCategoriesStr .= '</ul>';
    
     $this->db->closeConnection();
-                 
- 
-            
-    return $tmpstr;
+                  
+    return $menuitemsStr;
+    }
+    
+     
+    public function getMenuCategoriesFrontEnd(){
+        
+        
+                            
+        $link = $this->db->openConnection();
+      
+        $sql = "SELECT DISTINCT(m.category_id) FROM menu_item m INNER JOIN menu_category c ON (m.category_id = c.category_id) ORDER BY c.category_order";
+        
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
+        $count = $result->num_rows;
+        $x = true;
+        $menuCategoriesStr = '<ul class="list9 visible-lg" id="tostick"><div class=row">';           
+        $menuitemsStr = '';
+        
+        while($row = mysqli_fetch_array($result))
+        {
+           
+          
+           
+           $this->category = new menu_category($row['category_id']);
+            $menuCategoriesStr .= '<li class="col-lg-1 collist6">
+                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                                    <h3>'.$this->category->category_name.'</h3>
+                                  </li>';    
+        /*   if($x){
+           $x = false;
+           $menuCategoriesStr .= '<li class="col-lg-offset-3 col-lg-1 collist6">
+                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                                    <h3>'.$this->category->category_name.'</h3>
+                                  </li>';    
+           }else{
+                $menuCategoriesStr .= '<li class="col-lg-1 collist6">
+                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                                    <h3>'.$this->category->category_name.'</h3>
+                                  </li>';    
+           }*/
+        }
+    
+        $menuCategoriesStr .= '</div></ul>';
+   
+        $this->db->closeConnection();
+                  
+        return $menuCategoriesStr;
     }
     
     }

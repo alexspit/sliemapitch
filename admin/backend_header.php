@@ -58,7 +58,7 @@ $reservation = new reservation();
     <script src="../js/animatescroll.min.js"></script>
 
     
-      <script src="../js/myscript.js"></script>
+    <script src="../js/myscript.js"></script>
     
     <script src='../js/camera.js'></script>
     <!--[if (gt IE 9)|!(IE)]><!-->

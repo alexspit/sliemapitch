@@ -45,8 +45,11 @@ if (!$.cookie('firstVisit'))
 
 $('.animated').autosize();
 
-$("#tostick").sticky({ topSpacing: -75 });
-
+try{
+$("#tostick").sticky({ topSpacing: -75,
+                       wrapperClassName: 'visible-lg'});
+}catch(err){console.log(err);}
+                   
 if ($(location).attr('pathname') == "/GitHub/sliemapitch/contact.php" )
 {
         $("#scrollto_map").on("click", function(e){
@@ -443,6 +446,7 @@ $('#add_menucategory').submit(function(e){
             });
 })
 
+try{
 $('#menu_categories').sortable();
 $('#menu_categories').sortable().bind('sortupdate', function() 
 {
@@ -465,7 +469,8 @@ $('#menu_categories').sortable().bind('sortupdate', function()
             });
    
    
-});
+});}
+catch(err){console.log(err);}
 /*
 $('body').on("submit", ".menucategory_form",  function(e){
     e.preventDefault();
@@ -680,6 +685,19 @@ $('#pagination_limit').on('change', function(){
                  alert('Error: '+error);
              }
          });
+});
+
+
+
+
+///////////MENU FRONTEND////////////////////
+
+$('.list9 li figure a').on('click', function(e){
+    e.preventDefault();
+    
+    var cat = '#'+$(this).data('category');
+    $(cat).animatescroll({scrollSpeed:1000,easing:'easeOutQuart', padding: 130});
+    
 });
 
 

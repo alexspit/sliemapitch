@@ -23,56 +23,60 @@ $menu = new menu_item();
     
      
              
-        <ul class="list9 visible-lg" id="tostick">
-                    <li class="col-lg-1  collist6">
-                        <figure><a href="img/page3_bigimg1.jpg" class="thumb"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+       <!-- <ul class="list9 visible-lg" id="tostick">
+                    <li class="col-lg-1 collist6">
+                        <figure><a data-category="featured" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
                         <h3>Featured</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg2.jpg" class="thumb"><img src="img/page3_img2.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a data-category="starters" href="img/page3_bigimg2.jpg"><img src="img/page3_img2.jpg" alt=""><span><em></em></span></a></figure>
                          <h3>Starters</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a data-category="apitizers" href="img/page3_bigimg3.jpg"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
                          <h3>Apitizers</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a data-category="pasta" href="img/page3_bigimg4.jpg"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>
                         <h3>Pasta</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a data-category="pizza" href="img/page3_bigimg3.jpg"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
                          <h3>Pizza</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>       
+                        <figure><a data-category="salads" href="img/page3_bigimg4.jpg"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>       
                          <h3>Salads</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg1.jpg" class="thumb"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a data-category="meat" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
                         <h3>Meat</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg2.jpg" class="thumb"><img src="img/page3_img2.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a data-category="fish" href="img/page3_bigimg2.jpg"><img src="img/page3_img2.jpg" alt=""><span><em></em></span></a></figure>
                          <h3>Fish</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a href="img/page3_bigimg3.jpg"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
                          <h3>Desserts</h3>
                     </li>
                     <li class="col-lg-1  collist6">
-                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>   
+                        <figure><a href="img/page3_bigimg4.jpg"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>   
                         <h3>Platters</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg3.jpg" class="thumb"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a href="img/page3_bigimg3.jpg"><img src="img/page3_img3.jpg" alt=""><span><em></em></span></a></figure>
                          <h3>Breads</h3>
                     </li>
                     <li class="col-lg-1 collist6">
-                        <figure><a href="img/page3_bigimg4.jpg" class="thumb"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>       
+                        <figure><a href="img/page3_bigimg4.jpg"><img src="img/page3_img4.jpg" alt=""><span><em></em></span></a></figure>       
                          <h3>Breakfast</h3>
                     </li>
-        </ul>
+        </ul>-->
+    
+        <?php echo $menu->getMenuCategoriesFrontEnd();
+
+?>
      
         <div class="row_7"> 
               <div class="container">
