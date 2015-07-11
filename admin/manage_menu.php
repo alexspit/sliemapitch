@@ -64,7 +64,7 @@ include 'modals/manage_menucategory_modal.php';
                 </div>
             
                                           
-               
+              
                 <div style="height:20px; width:100%;"></div>
                 
                 

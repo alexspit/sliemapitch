@@ -57,6 +57,16 @@ $reservation = new reservation();
     <script src="../js/jquery.autosize.min.js"></script>
     <script src="../js/animatescroll.min.js"></script>
 
+    <script>
+        window.FileAPI = {
+              debug: false // debug mode
+            , staticPath: '../js/jquery.fileapi/FileAPI/' // path to *.swf
+        };
+    </script>
+    <script src="../js/jquery.fileapi/FileAPI/FileAPI.min.js"></script>
+    <script src="../js/jquery.fileapi/FileAPI/FileAPI.exif.js"></script>
+    <script src="../js/jquery.fileapi/jquery.fileapi.min.js"></script>
+    
     
     <script src="../js/myscript.js"></script>
     

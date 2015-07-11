@@ -2490,7 +2490,7 @@ input.error, textarea.error, select.error{
 
 #menuitems h1 {
     color: #444;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     margin: 20px 0 0 0;
     text-align: center;
@@ -2498,27 +2498,55 @@ input.error, textarea.error, select.error{
 }
 
 #menuitems h2 {
-    border-bottom: 1px solid #444;
+   // border-bottom: 2px solid #444;
     color: #000;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     margin: 20px 0 10px;
     padding: 0 0 10px 0;
     text-transform: uppercase;
+    
 }
 
 #menuitems h3 {
     color: #ce2c38;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     margin: 10px 0 5px;
     text-transform: uppercase;
+    
 }
 
 #menuitems .price p {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 20px;
     font-style: normal;
     margin: 26px 0 5px;
     text-align: right;
+}
+
+#menuitems span {   
+    font-size: 30px; 
+}
+
+#menuitems .even:hover {   
+    background-color: #FFFCFC;
+    -webkit-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+
+#menuitems .odd:hover {   
+    background-color: #FEF0EE;
+    -webkit-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+
+#menuitems .odd {   
+    background-color: #f5f6f6;
+   //background-color: #FEF0EE;
+}
+
+#menuitems .even {   
+    background-color: #fCfCfC;
+ // background-color: #FFFCFC;
 }
 
 ul#tostick{
@@ -2539,4 +2567,46 @@ ul#tostick{
 .tm_navbar .nav li.active{
   border-bottom-color: #f5f5f5;
   background-color: #f5f5f5;
+}
+
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot?a9ns4');
+	src:url('../fonts/icomoon.eot?#iefixa9ns4') format('embedded-opentype'),
+		url('../fonts/icomoon.ttf?a9ns4') format('truetype'),
+		url('../fonts/icomoon.woff?a9ns4') format('woff'),
+		url('../fonts/icomoon.svg?a9ns4#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-gluten1:before {
+	content: "\e600";
+        color: #998675;
+}
+.icon-gluten2:before {
+	content: "\e601";
+}
+.icon-leaf:before {
+	content: "\f06c";
+        color: #398439;
+}
+.icon-flame:before {
+	content: "\f0d2";
+        color: #e67e22;
 }

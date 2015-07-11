@@ -46,9 +46,67 @@ if (!$.cookie('firstVisit'))
 $('.animated').autosize();
 
 try{
-$("#tostick").sticky({ topSpacing: -75,
+    
+var $tostick = $("#tostick");
+var $h3 = $("#tostick h3");
+
+$tostick.sticky({ topSpacing: -75,
                        wrapperClassName: 'visible-lg'});
+                   
+                   
+if($tostick.outerHeight() < 185)
+    {
+        console.log($tostick.outerHeight());
+        $h3.css('font-size', '120%');
+        
+        $tostick.sticky({ topSpacing: -50,
+                       wrapperClassName: 'visible-lg'});
+        
+    }
+    else{
+        $h3.css('font-size', '150%');
+        $tostick.sticky({ topSpacing: -75,
+                       wrapperClassName: 'visible-lg'});
+    }
+    
+$( window ).resize(function() {
+    if($tostick.outerHeight() < 185)
+    {
+        console.log($tostick.outerHeight());
+        $h3.css('font-size', '120%');
+        
+        $tostick.sticky({ topSpacing: -50,
+                       wrapperClassName: 'visible-lg'});
+        
+    }
+    else{
+        $h3.css('font-size', '150%');
+        $tostick.sticky({ topSpacing: -75,
+                       wrapperClassName: 'visible-lg'});
+    }
+});
+
+
+$( window ).scroll(function(){
+    if($tostick.outerHeight() < 185)
+    {
+        
+        $tostick.sticky({ topSpacing: -50,
+                       wrapperClassName: 'visible-lg'});
+        
+    }
+    else{
+        
+        $tostick.sticky({ topSpacing: -75,
+                       wrapperClassName: 'visible-lg'});
+    }
+})
+
+                   
+                   
 }catch(err){console.log(err);}
+
+
                    
 if ($(location).attr('pathname') == "/GitHub/sliemapitch/contact.php" )
 {
@@ -448,6 +506,7 @@ $('#add_menucategory').submit(function(e){
 
 try{
 $('#menu_categories').sortable();
+
 $('#menu_categories').sortable().bind('sortupdate', function() 
 {
    
@@ -750,8 +809,6 @@ $('#get_flight_data').click(function(e){
             }); 
     
 })
-
-
 
 
 

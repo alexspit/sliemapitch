@@ -26,7 +26,7 @@ class menu_category {
               $this->get();
           }
           
-          $this->category_img = "default.jpg";
+         // $this->category_img = "default.jpg";
           
  
     }

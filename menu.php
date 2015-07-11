@@ -81,8 +81,9 @@ $menu = new menu_item();
         <div class="row_7"> 
               <div class="container">
         <div id="menuitems">
-            
-                
+           
+           
+               
 
                 <?php echo $menu->getMenuItemsFrontEnd();
 

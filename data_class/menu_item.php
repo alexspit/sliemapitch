@@ -252,18 +252,13 @@ class menu_item {
         
         $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
         
-        $menuCategoriesStr = '<ul class="list9 visible-lg" id="tostick">';           
+         
         $menuitemsStr = '';
         
         while($row = mysqli_fetch_array($result))
         {
               
            $this->category = new menu_category($row['category_id']);
-           
-           $menuCategoriesStr .= '<li class="col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
-                                    <h3>'.$this->category->category_name.'</h3>
-                                  </li>';
            
            $menuitemsStr .= "<h2 id='".$this->category->category_name."' >".$this->category->category_name."</h2>";  
           
@@ -276,9 +271,10 @@ class menu_item {
         
            $result2 = mysqli_query($link, $sql2) or die(mysqli_error($link));   
            
+           $count = 0;
            while($row = mysqli_fetch_array($result2)){
-              
-           
+              $oddOrEven = ($count % 2 == 0 ? "even" : "odd");
+               $count++;
                $this->name = $row['name'];
                $this->description = $row['description'];
                $this->price = $row['price'];
@@ -287,13 +283,24 @@ class menu_item {
                $this->gluten_free = ($row['gluten_free'] > 0 ? true : false);
                $this->spicy = ($row['spicy'] > 0 ? true : false);
                $catName = $this->category->category_name;
-               $menuitemsStr .=" <div class='$catName category row'>
-                  <div class='item col-md-9'>
-                    <h3 class='name'>$this->name </h3>
-                    <p class='description'>$this->description </p>
-                    <span class='halflings halflings-info-sign'></span>
-                  </div>
-                  <div class='price col-md-3'>
+               $menuitemsStr .=" <div class='$catName $oddOrEven category row'>
+                  <div class='item col-sm-9'>
+                    <h3 class='name'>$this->name";
+                    
+                    if($this->vegetarian){
+                        $menuitemsStr .="  <span class='icon-leaf animated pulse' title='Vegetrian'></span>";
+                    }
+                    
+                    if($this->spicy){
+                        $menuitemsStr .="<span class='icon-flame animated pulse' title='Spicy'></span>";
+                    }
+                   
+                    if($this->gluten_free){
+                        $menuitemsStr .=" <span class='icon-gluten1 animated pulse' title='Gluten Free'></span>";
+                    }   
+               $menuitemsStr .="</h3>
+                    <p class='description'>$this->description </p></div>
+                  <div class='price col-sm-3'>
                     <p class='price'>$this->price €</p>
                   </div>
                 </div>";
@@ -301,8 +308,7 @@ class menu_item {
                
            }        
     }
-    
-     $menuCategoriesStr .= '</ul>';
+   
    
     $this->db->closeConnection();
                   
@@ -330,22 +336,19 @@ class menu_item {
           
            
            $this->category = new menu_category($row['category_id']);
-            $menuCategoriesStr .= '<li class="col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
-                                    <h3>'.$this->category->category_name.'</h3>
-                                  </li>';    
-        /*   if($x){
+         
+          if($x){
            $x = false;
-           $menuCategoriesStr .= '<li class="col-lg-offset-3 col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+           $menuCategoriesStr .= '<li class="col-lg-offset-1 col-lg-1 collist6">
+                                    <figure><a data-category="'.$this->category->category_name.'" href="#"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
                                     <h3>'.$this->category->category_name.'</h3>
                                   </li>';    
            }else{
                 $menuCategoriesStr .= '<li class="col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href="img/page3_bigimg1.jpg"><img src="img/page3_img1.jpg" alt=""><span><em></em></span></a></figure>
+                                    <figure><a data-category="'.$this->category->category_name.'" href=""><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
                                     <h3>'.$this->category->category_name.'</h3>
                                   </li>';    
-           }*/
+           }
         }
     
         $menuCategoriesStr .= '</div></ul>';

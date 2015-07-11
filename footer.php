@@ -17,12 +17,14 @@
     </div>
     <div class="footerrow2">
         <div class="container">
+            <div class="row">
             <ul class="social2 clearfix">
                  <li><a href="https://www.facebook.com/sliemapitch" target="_blank"><img src="img/social_icon1.png" alt=""></a></li>
                  <li><a href="https://www.twitter.com" target="_blank"><img src="img/social_icon2.png" alt=""></a></li>
                  <li><a href="https://plus.google.com/112491663843898940749" target="_blank"><img src="img/social_icon3.png" alt=""></a></li>
                  <li><a href="https://www.instagram.com" target="_blank"><img src="img/social_icon4.png" alt=""></a></li>
             </ul> 
+            </div>
         </div>
     </div>
     <div class="footerrow3">

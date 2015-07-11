@@ -30,6 +30,33 @@
 
                             </div>
                         </form>
+                        
+                      
+                        
+                        <div id="uploader">
+                            <div class="js-fileapi-wrapper">
+                                <input type="file" name="files[]" />
+                            </div>
+                            <div data-fileapi="active.show" class="progress">
+                                <div data-fileapi="progress" class="progress__bar"></div>
+                            </div>
+                        </div>
+                        <script>
+                            jQuery(function ($){
+                                $('#uploader').fileapi({
+                                    url: '../process_data/upload.php',
+                                    autoUpload: true,
+                                    accept: 'image/*',
+                                    multiple: true,
+                                    maxSize: FileAPI.MB*10, // max file size
+                                    onFileComplete: function(e, ui){
+                                        console.log(e);
+                                        console.log(ui);
+                                    }
+                                });
+                            });
+                        </script>
+
                      </div>   
                      
                 </div>
