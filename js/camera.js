@@ -1,6 +1,11 @@
 // Camera slideshow v1.3.3 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+
+var fx = 'random';
+var easing = 'easeOutQuart';
+var time = 5000;
+var transition = 1500;
 ;(function($){$.fn.camera = function(opts, callback) {
 	
 	var defaults = {
@@ -10,9 +15,9 @@
 		barDirection		: 'leftToRight',	//'leftToRight', 'rightToLeft', 'topToBottom', 'bottomToTop'		
 		barPosition			: 'bottom',	//'bottom', 'left', 'top', 'right'		
 		cols				: 6,		
-		easing				: 'easeOutQuart',	//for the complete list http://jqueryui.com/demos/effect/easing.html		
+		easing				: easing,	//for the complete list http://jqueryui.com/demos/effect/easing.html		
 		mobileEasing		: '',	//leave empty if you want to display the same easing on mobile devices and on desktop etc.		
-		fx                              : 'random',	//'random','simpleFade', 'curtainTopLeft', 'curtainTopRight', 'curtainBottomLeft', 'curtainBottomRight', 'curtainSliceLeft', 'curtainSliceRight', 'blindCurtainTopLeft', 'blindCurtainTopRight', 'blindCurtainBottomLeft', 'blindCurtainBottomRight', 'blindCurtainSliceBottom', 'blindCurtainSliceTop', 'stampede', 'mosaic', 'mosaicReverse', 'mosaicRandom', 'mosaicSpiral', 'mosaicSpiralReverse', 'topLeftBottomRight', 'bottomRightTopLeft', 'bottomLeftTopRight', 'bottomLeftTopRight'
+		fx                              : fx,	//'random','simpleFade', 'curtainTopLeft', 'curtainTopRight', 'curtainBottomLeft', 'curtainBottomRight', 'curtainSliceLeft', 'curtainSliceRight', 'blindCurtainTopLeft', 'blindCurtainTopRight', 'blindCurtainBottomLeft', 'blindCurtainBottomRight', 'blindCurtainSliceBottom', 'blindCurtainSliceTop', 'stampede', 'mosaic', 'mosaicReverse', 'mosaicRandom', 'mosaicSpiral', 'mosaicSpiralReverse', 'topLeftBottomRight', 'bottomRightTopLeft', 'bottomLeftTopRight', 'bottomLeftTopRight'
 										//you can also use more than one effect, just separate them with commas: 'simpleFade, scrollRight, scrollBottom'
 		mobileFx			: '',	//leave empty if you want to display the same effect on mobile devices and on desktop etc.
 		gridDifference		: 250,	//to make the grid blocks slower than the slices, this value must be smaller than transPeriod		
@@ -30,7 +35,7 @@
 		navigationHover		: false,	//if true the navigation button (prev, next and play/stop buttons) will be visible on hover state only, if false they will be visible always		
 		mobileNavHover		: false,	//same as above, but only for mobile devices		
 		opacityOnGrid		: true,	//true, false. Decide to apply a fade effect to blocks and slices: if your slideshow is fullscreen or simply big, I recommend to set it false to have a smoother effect 		
-		overlayer			: false,	//a layer on the images to prevent the users grab them simply by clicking the right button of their mouse (.camera_overlayer)		
+		overlayer			: true,	//a layer on the images to prevent the users grab them simply by clicking the right button of their mouse (.camera_overlayer)		
 		pagination			: true,		
 		playPause			: true,	//true or false, to display or not the play/pause buttons		
 		pauseOnClick		: true,	//true, false. It stops the slideshow when you click the sliders.		
@@ -41,9 +46,9 @@
 		slicedCols			: 12,	//if 0 the same value of cols		
 		slicedRows			: 8,	//if 0 the same value of rows		
 		slideOn				: 'random',	//next, prev, random: decide if the transition effect will be applied to the current (prev) or the next slide		
-		thumbnails			: false,		
-		time				: 5000,	//milliseconds between the end of the sliding effect and the start of the nex one		
-		transPeriod			: 1500,	//lenght of the sliding effect in milliseconds		
+		thumbnails			: true,		
+		time				: time,	//milliseconds between the end of the sliding effect and the start of the nex one		
+		transPeriod			: transition,	//lenght of the sliding effect in milliseconds		
 ////////callbacks
 		onEndTransition		: function() {  },	//this callback is invoked when the transition effect ends
 		onLoaded			: function() {  },	//this callback is invoked when the image on a slide has completely loaded		

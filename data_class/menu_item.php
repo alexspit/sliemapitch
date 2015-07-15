@@ -340,12 +340,12 @@ class menu_item {
           if($x){
            $x = false;
            $menuCategoriesStr .= '<li class="col-lg-offset-1 col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href="#"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
+                                    <figure><a data-category="'.$this->category->category_name.'" href="#'.$this->category->category_name.'"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
                                     <h3>'.$this->category->category_name.'</h3>
                                   </li>';    
            }else{
                 $menuCategoriesStr .= '<li class="col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href=""><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
+                                    <figure><a data-category="'.$this->category->category_name.'" href="#'.$this->category->category_name.'"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
                                     <h3>'.$this->category->category_name.'</h3>
                                   </li>';    
            }

@@ -178,22 +178,7 @@ class menu_category {
         while($row = mysqli_fetch_array($result))
         {
             
-            //$string .= '<option value="'.$row['category_id'].'">'.ucwords($row['category_name']).'</option>';  
-            
-           /* $string .= '<div class="menu_category row" id="menu_category_'.$row['category_id'].'">
-                    
-                            <form action="../process_data/delete_menu_category.php" method="post" class="menucategory_form">
-                                    <div class="col-xs-9">
-                                        <h3 class="blue">'.ucwords($row['category_name']).'</h3> 
-                                    </div>
-                                    
-                                    <div class="col-xs-3">
-                                        <input type="hidden" name="id" value="'.$row['category_id'].'">
-                                        <button class="btn btn-primary" type="submit"><span class="fa fa-trash-o"></span></button>  
-                                    </div>                              
-                             </form>
-                        </div>';*/
-            
+                   
             $string .= '<li data-id="'.$row['category_id'].'" class="list-group-item">
                                 
                                 <a href="../process_data/delete_menu_category.php?id='.$row['category_id'].'"><span class="fa fa-trash-o pull-right animated pulse"></span></a>

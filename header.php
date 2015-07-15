@@ -28,7 +28,7 @@ if (session_status() == PHP_SESSION_NONE)
     <link rel="stylesheet" href="fonts/font-awesome.css">
     <link rel="stylesheet" href="css/camera.css">
     <link rel="stylesheet" href="css/touchTouch.css">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="css/jquery.datetimepicker.css">
     <link rel="stylesheet" href="css/animate.min.css">
 
 
@@ -71,11 +71,11 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
       <script>	
         $(window).load( function(){	
             
-           //camera
+           //slider initialization
     	   jQuery('.camera_wrap').camera();	
            
                           
-            // TouchTouch
+            //featured items gallery
             $('.thumb').touchTouch();   
            	 
         });

@@ -4,8 +4,6 @@ if (session_status() == PHP_SESSION_NONE)
     
     $_SESSION["current_page"] = "index";
     
-    
-    
 $title = "Sliema Pitch Restaurant & Lounge | Home page";
 $desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vulputate sit amet lectus eu scelerisque. Donec ullamcorper mi diam, vitae hendrerit metus aliquet nec. Fusce id vestibulum augue. Praesent elit orci, blandit eu placerat ut, egestas sit amet nibh. Aenean placerat sit amet nunc nec venenatis. Duis id orci rhoncus, congue nunc sit amet, porttitor magna. Etiam in convallis lorem. Quisque euismod dictum ante. Pellentesque tellus est, iaculis quis tellus at, dictum faucibus libero. Duis tincidunt diam quis turpis posuere malesuada. Nunc eu nisi a felis ultrices condimentum. Mauris quis nisl ornare turpis sollicitudin condimentum. Etiam at mauris tempor, scelerisque turpis at, vulputate nisi. Suspendisse hendrerit tincidunt ornare. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consectetur placerat consectetur. Cras vitae mauris tellus. Duis leo eros, eleifend sit amet magna quis, hendrerit malesuada purus. Proin rhoncus consequat augue et mollis. Nunc pretium porta nibh, in volutpat nunc bibendum ut. Nullam neque dolor, facilisis nec dignissim vitae, adipiscing nec turpis. Duis viverra facilisis risus id scelerisque. Aenean iaculis leo at elit gravida, eu tempor sem faucibus.
 Sed viverra feugiat quam in suscipit. Vestibulum nec massa luctus risus tincidunt tristique eget vel augue. Aenean eu libero sed sem varius hendrerit. Proin eu erat tempus, rutrum eros eget, convallis turpis. Nam id tempor lorem. Suspendisse ultricies imperdiet libero, quis pellentesque elit iaculis id. Maecenas porta a lorem sed porta.
@@ -27,11 +25,11 @@ include 'header.php';
     <div class="bgslider"> 
         <div class="slider">
             <div class="camera_wrap">
-                  <div data-src="img/picture1.jpg">
+                  <div data-src="img/slider/picture1.jpg">
                   </div>
-                  <div data-src="img/picture2.jpg">
+                  <div data-src="img/slider/picture2.jpg">
                   </div>
-                  <div data-src="img/picture3.jpg">
+                  <div data-src="img/slider/picture3.jpg">
                   </div>
             </div>
         </div>
@@ -39,7 +37,7 @@ include 'header.php';
     <!--==============================row_1=================================-->   
     <div class="container">
         <div class="row_1"> 
-        <h2>special dishes</h2>
+        <h2>Our Specialities </h2>
             <div class="row">
                 <ul class="list1">
                     <li class="col-lg-3 col-md-3 col-sm-3  col-xs-6 collist1">
@@ -67,7 +65,7 @@ include 'header.php';
         </div>
     </div>
     <!--==============================row_2=================================-->   
-    <div class="row_2"> 
+    <div class="row_2 hidden-xs"> 
         <div class="container">
             <div class="row">
                 <ul class="list1">

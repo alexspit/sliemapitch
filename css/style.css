@@ -1133,6 +1133,31 @@ header {
 	transition: all 0.5s ease;
 }
 
+.list9 li figure a.active span {
+	border-radius: 500px;
+	text-align: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	//border: 15px solid #e74c3c;
+        border: 8px solid #e74c3c;
+	
+}
+
+.list9 li figure a.active span em {
+	border-radius: 500px;
+	text-align: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	//border: 10px solid #ffffff;
+        border: 4px solid #ffffff;
+}
+
 
 .list9 li h3 {
 	font-size: 25px;
@@ -2524,7 +2549,7 @@ input.error, textarea.error, select.error{
 }
 
 #menuitems span {   
-    font-size: 30px; 
+    font-size: 20px; 
 }
 
 #menuitems .even:hover {   

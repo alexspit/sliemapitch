@@ -474,7 +474,7 @@ $('#add_menucategory').submit(function(e){
                 console.log(data);
                         if(data.success){             
                                                     
-                                var listitem = '<li data-id="'+data.category.category_id+'" class="list-group-item" id="menucategory_'+data.category.category_id+'">\n\
+                                var listitem = '<li data-id="'+data.category.category_id+'" class="list-group-item animated flipInX" id="menucategory_'+data.category.category_id+'">\n\
                                                     <a href="../process_data/delete_menu_category.php?id='+data.category.category_id+'"><span class="fa fa-trash-o pull-right animated pulse"></span></a>\n\
                                                     <p class="list-group-item-text"><span class="fa fa-arrows"></span>   '+capitalize(data.category.category_name)+'</p> \n\
                                                 </li>';
@@ -573,6 +573,7 @@ $('body').on("submit", ".menucategory_form",  function(e){
 */
 
 
+
 $('body').on("click", "#menu_categories a",  function(e){
     e.preventDefault();
     
@@ -588,8 +589,12 @@ $('body').on("click", "#menu_categories a",  function(e){
              url: url,
              success: function(data){
                         if(data.success){             
-                                $this.parent().remove();    
-                                
+                                   
+                               $this.parent().addClass('animated flipOutX');
+                               setTimeout(function(){
+                                   $this.parent().addClass('hidden');
+                               },1000);
+                                                               
                                 console.log( $('#menu_category_filter option[value="'+data.id+'"]'));
                                 console.log('#menu_category_filter');
                                 $('#menu_category_filter option[value="'+data.id+'"]').remove();
