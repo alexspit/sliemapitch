@@ -17,7 +17,7 @@ include_once 'Paginator.php';
  */
 class menu_item {
     
-    public $item_id, $category, $name, $description, $price, $item_img, $date_added, $last_edited, $vegetarian, $spicy, $gluten_free, $featured;
+    public $item_id, $category, $name, $description, $price, $date_added, $last_edited, $vegetarian, $spicy, $gluten_free, $featured, $thumbnail, $image;
     private $db;
     public function __construct($item_id = null)
     {
@@ -37,7 +37,7 @@ class menu_item {
         if(isset($this->item_id)){
             $link = $this->db->openConnection();
         
-            $sql = "SELECT c.category_name, c.category_img, c.category_id, m.name, m.description, m.price, m.item_img, m.date_added, m.last_edited, m.vegetarian, m.spicy, m.gluten_free, m.featured
+            $sql = "SELECT c.category_name, c.category_img, c.category_id, m.name, m.description, m.price, m.date_added, m.last_edited, m.vegetarian, m.spicy, m.gluten_free, m.featured, m.thumbnail, m.image
                     FROM menu_item m
                     INNER JOIN menu_category c ON ( c.category_id = m.category_id)
                     WHERE m.item_id = $this->item_id";
@@ -53,12 +53,13 @@ class menu_item {
                 $this->description = $row['description'];
                 $this->price = $row['price'];
                 $this->date_added = $row['date_added'];
-                $this->last_edited = $row['last_edited'];
-                $this->item_img = $row['item_img'];
+                $this->last_edited = $row['last_edited'];              
                 $this->vegetarian = $row['vegetarian'];
                 $this->spicy = $row['spicy'];
                 $this->gluten_free = $row['gluten_free'];
-                $this->featured = $row['featured'];   
+                $this->featured = $row['featured']; 
+                $this->thumbnail = $row['thumbnail'];
+                $this->image = $row['image'];
                 
             }
             $this->db->closeConnection();
@@ -243,8 +244,6 @@ class menu_item {
     }
     
     public function getMenuItemsFrontEnd($id=null){
-        
-        
                             
         $link = $this->db->openConnection();
       
@@ -340,12 +339,12 @@ class menu_item {
           if($x){
            $x = false;
            $menuCategoriesStr .= '<li class="col-lg-offset-1 col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href="#'.$this->category->category_name.'"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
+                                    <figure><a id="cat_'.$this->category->category_name.'" data-category="'.$this->category->category_name.'" href="#'.$this->category->category_name.'"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
                                     <h3>'.$this->category->category_name.'</h3>
                                   </li>';    
            }else{
                 $menuCategoriesStr .= '<li class="col-lg-1 collist6">
-                                    <figure><a data-category="'.$this->category->category_name.'" href="#'.$this->category->category_name.'"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
+                                    <figure><a id="cat_'.$this->category->category_name.'" data-category="'.$this->category->category_name.'" href="#'.$this->category->category_name.'"><img src="img/menu/categories/'.$this->category->category_img.'" alt=""><span><em></em></span></a></figure>
                                     <h3>'.$this->category->category_name.'</h3>
                                   </li>';    
            }
@@ -357,5 +356,55 @@ class menu_item {
                   
         return $menuCategoriesStr;
     }
+    
+    
+    
+    public function getFeaturedItemsFirst(){
+                            
+        $link = $this->db->openConnection();
+      
+        $sql = "SELECT * FROM menu_item WHERE featured=1 ORDER BY date_added";
+        
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link)); 
+        
+        $array = array();
+        $str = '';
+        $count = $result->num_rows;
+        
+        if($count < 4){
+            //return "show nothing";
+            return;
+        }
+        else if($count >= 4){
+            //return "show first 4";
+            $count = 4;
+            
+            for ($i = 0; $i < $count; $i++) {
+                $row = mysqli_fetch_array($result);
+                
+                $image = "img/menu/featured/".$row['image'];
+                $thumbnail = "img/menu/featured/".$row['thumbnail'];
+                $category = new menu_category($row['category_id']);
+                
+                 $str .='                 <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 collist1">
+                                                <figure><a href="'.$image.'" class="thumb"><img src="'.$thumbnail.'" alt=""><span><em></em></span></a></figure>
+                                                <div class="wow animated fadeInDown" data-wow-duration="700ms" data-wow-delay="100ms">
+                                                    <strong>'.$row['name'].'</strong>
+                                                    <a data-category="'.$category->category_name.'" href="menu.php">View '.$category->category_name.' menu</a>
+                                                </div>
+                                          </li>'; 
+            }
+        }
+        else{
+            return;
+        }
+       
+       
+   
+        $this->db->closeConnection();
+                  
+    return $str;
+    }
+    
     
     }

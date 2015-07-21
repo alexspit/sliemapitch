@@ -37,5 +37,6 @@
 
 <script src="js/bootstrap.min.js"></script>
 <script src="js/tm-scripts.js"></script>
+<script src="js/wow.min.js"></script> 
 </body>
 </html>

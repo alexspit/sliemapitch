@@ -11,7 +11,9 @@ Suspendisse porttitor eleifend ornare. Nam enim dolor, tempor a tortor quis, sod
 Sed malesuada vitae neque eu viverra. Praesent turpis felis, vehicula a ipsum eu, lacinia tincidunt ante.";
 $keywords = "Sliema, Pitch, Food, Restaurant, Lounge, Italian";
 include 'header.php';
+include 'data_class/menu_item.php';
 
+$menu = new menu_item();
 
 ?>
 
@@ -36,56 +38,60 @@ include 'header.php';
     </div>
     <!--==============================row_1=================================-->   
     <div class="container">
+      
+        
         <div class="row_1"> 
         <h2>Our Specialities </h2>
             <div class="row">
                 <ul class="list1">
-                    <li class="col-lg-3 col-md-3 col-sm-3  col-xs-6 collist1">
-                        <figure><a href="img/page1_bigimg1.jpg" class="thumb"><img src="img/page1_img1.jpg" alt=""><span><em></em></span></a></figure>
+                  <!--  <li class="col-lg-3 col-md-3 col-sm-3  col-xs-6 collist1">
+                        <figure><a href="img/menu/featured/page1_bigimg1.jpg" class="thumb"><img src="img/menu/featured/page1_img1.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
                     </li>
                     <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 collist1">
-                        <figure><a href="img/page1_bigimg2.jpg" class="thumb"><img src="img/page1_img2.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a href="img/menu/featured/page1_bigimg2.jpg" class="thumb"><img src="img/menu/featured/page1_img2.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
                     </li>
                     <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 collist1">
-                        <figure><a href="img/page1_bigimg3.jpg" class="thumb"><img src="img/page1_img3.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a href="img/menu/featured/page1_bigimg3.jpg" class="thumb"><img src="img/menu/featured/page1_img3.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
                     </li>
                     <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 collist1">
-                        <figure><a href="img/page1_bigimg4.jpg" class="thumb"><img src="img/page1_img4.jpg" alt=""><span><em></em></span></a></figure>
+                        <figure><a href="img/menu/featured/page1_bigimg4.jpg" class="thumb"><img src="img/menu/featured/page1_img4.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
-                    </li>
+                    </li>-->
+                  
+                    <?php echo $menu->getFeaturedItemsFirst();?>
                 </ul>
             </div>
         </div>
     </div>
     <!--==============================row_2=================================-->   
-    <div class="row_2 hidden-xs"> 
+      <div class="row_2 hidden-xs"> 
         <div class="container">
             <div class="row">
                 <ul class="list1">
-                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1">
-                        <figure><a href="img/page1_bigimg5.jpg" class="thumb"><img src="img/page1_img5.jpg" alt=""><span><em></em></span></a></figure>
+                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1 wow animated fadeInDownBig" data-wow-duration="700ms" data-wow-delay="100ms">
+                        <figure><a href="img/menu/featured/page1_bigimg5.jpg" class="thumb"><img src="img/menu/featured/page1_img5.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
                     </li>
-                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1">
-                        <figure><a href="img/page1_bigimg6.jpg" class="thumb"><img src="img/page1_img6.jpg" alt=""><span><em></em></span></a></figure>
+                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1 wow animated fadeInDownBig" data-wow-duration="700ms" data-wow-delay="150ms">
+                        <figure><a href="img/menu/featured/page1_bigimg6.jpg" class="thumb"><img src="img/menu/featured/page1_img6.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
                     </li>
-                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1">
-                        <figure><a href="img/page1_bigimg7.jpg" class="thumb"><img src="img/page1_img7.jpg" alt=""><span><em></em></span></a></figure>
+                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1 wow animated fadeInDownBig" data-wow-duration="700ms" data-wow-delay="200ms">
+                        <figure><a href="img/menu/featured/page1_bigimg7.jpg" class="thumb"><img src="img/menu/featured/page1_img7.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
                     </li>
-                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1">
-                        <figure><a href="img/page1_bigimg8.jpg" class="thumb"><img src="img/page1_img8.jpg" alt=""><span><em></em></span></a></figure>
+                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 hidden-xs collist1 wow animated fadeInDownBig" data-wow-duration="700ms" data-wow-delay="250ms">
+                        <figure><a href="img/menu/featured/page1_bigimg8.jpg" class="thumb"><img src="img/menu/featured/page1_img8.jpg" alt=""><span><em></em></span></a></figure>
                         <strong>Dolore ipsum</strong>
                         <a href="#">Dolore ipsum</a>
                     </li>
