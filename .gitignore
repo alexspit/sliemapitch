@@ -1,1 +1,3 @@
 nbproject/private/private.xml
+admin/login_process.php
+data_class/db_connection.php
